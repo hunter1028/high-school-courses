@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>人教B版 高中数学｜第一章 空间向量与立体几何</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+<div class="shell">
+  <header class="shell-top">
+    <nav class="breadcrumb" aria-label="当前位置">
+      <span>人教B版 高中数学</span><b aria-hidden="true">›</b><span>选择性必修</span><b aria-hidden="true">›</b><strong>第一章 空间向量与立体几何</strong>
+    </nav>
+  </header>
+
+  <div class="shell-body">
+    <nav class="sidebar" id="chapter-tree" aria-label="教材章节树">
+      <button class="menu-toggle" type="button" aria-controls="chapter-tree" aria-expanded="true" title="折叠菜单" aria-label="折叠菜单">❮</button>
+
+      <details class="nav-book">
+        <summary>必修</summary>
+        <span class="nav-ch todo">第一章 集合与常用逻辑用语</span>
+        <span class="nav-ch todo">第二章 等式与不等式</span>
+        <span class="nav-ch todo">第三章 函数</span>
+        <span class="nav-ch todo">第四章 指数函数、对数函数与幂函数</span>
+        <span class="nav-ch todo">第五章 统计与概率</span>
+        <span class="nav-ch todo">第六章 平面向量初步</span>
+        <span class="nav-ch todo">第七章 三角函数</span>
+        <span class="nav-ch todo">第八章 向量的数量积与三角恒等变换</span>
+        <span class="nav-ch todo">第九章 解三角形</span>
+        <span class="nav-ch todo">第十章 复数</span>
+        <span class="nav-ch todo">第十一章 立体几何初步</span>
+      </details>
+
+      <details class="nav-book" open>
+        <summary>选择性必修</summary>
+        <details class="nav-chapter" open>
+          <summary>第一章 空间向量与立体几何</summary>
+          <div class="nav-subs">
+          <a class="nav-sub active" href="chapters/space-vectors-solid-geometry.html#overview" target="viewer">速览</a>
+          <a class="nav-sub" href="chapters/space-vectors-solid-geometry.html#knowledge" target="viewer">知识清单</a>
+          <a class="nav-sub" href="chapters/space-vectors-solid-geometry.html#methods" target="viewer">方法模板</a>
+          <a class="nav-sub" href="chapters/space-vectors-solid-geometry.html#errors" target="viewer">易错</a>
+          <a class="nav-sub" href="chapters/space-vectors-solid-geometry.html#basic" target="viewer">基础练习</a>
+          <a class="nav-sub" href="chapters/space-vectors-solid-geometry.html#simulation" target="viewer">模拟练习</a>
+          <a class="nav-sub" href="chapters/space-vectors-solid-geometry.html#gaokao" target="viewer">高考真题</a>
+          <a class="nav-sub" href="chapters/space-vectors-solid-geometry.html#weakness" target="viewer">薄弱环节</a>
+          </div>
+        </details>
+        <span class="nav-ch todo">第二章 平面解析几何</span>
+        <span class="nav-ch todo">第三章 排列、组合与二项式定理</span>
+        <span class="nav-ch todo">第四章 概率与统计</span>
+        <span class="nav-ch todo">第五章 数列</span>
+        <span class="nav-ch todo">第六章 导数及其应用</span>
+      </details>
+
+      <details class="nav-book">
+        <summary>总结与补充</summary>
+        <span class="nav-ch todo">二级结论与速算</span>
+        <span class="nav-ch todo">易错雷区汇总</span>
+        <span class="nav-ch todo">专题总结</span>
+      </details>
+    </nav>
+    <div class="sidebar-resizer" role="separator" aria-orientation="vertical" aria-label="拖动调整菜单宽度" title="拖动调整菜单宽度"></div>
+
+    <main class="viewer">
+      <iframe name="viewer" src="chapters/space-vectors-solid-geometry.html" title="章节内容"></iframe>
+    </main>
+  </div>
+</div>
+
+<script>
+  var shell = document.querySelector('.shell');
+  var menuToggle = document.querySelector('.menu-toggle');
+  menuToggle.addEventListener('click', function () {
+    var isCollapsed = shell.classList.toggle('menu-collapsed');
+    menuToggle.setAttribute('aria-expanded', String(!isCollapsed));
+    menuToggle.title = isCollapsed ? '展开菜单' : '折叠菜单';
+    menuToggle.setAttribute('aria-label', menuToggle.title);
+    menuToggle.textContent = isCollapsed ? '❯' : '❮';
+  });
+
+  var resizer = document.querySelector('.sidebar-resizer');
+  resizer.addEventListener('pointerdown', function (event) {
+    if (shell.classList.contains('menu-collapsed')) return;
+    var startX = event.clientX;
+    var startWidth = document.querySelector('.sidebar').getBoundingClientRect().width;
+    resizer.setPointerCapture(event.pointerId);
+    function resize(moveEvent) {
+      var maxWidth = Math.min(window.innerWidth * 0.42, 480);
+      var width = Math.max(260, Math.min(maxWidth, startWidth + moveEvent.clientX - startX));
+      document.documentElement.style.setProperty('--sidebar-width', width + 'px');
+    }
+    function stop() {
+      resizer.removeEventListener('pointermove', resize);
+      resizer.removeEventListener('pointerup', stop);
+      resizer.removeEventListener('pointercancel', stop);
+    }
+    resizer.addEventListener('pointermove', resize);
+    resizer.addEventListener('pointerup', stop);
+    resizer.addEventListener('pointercancel', stop);
+  });
+
+  var items = document.querySelectorAll('.sidebar a.nav-ch, .sidebar a.nav-sub');
+  items.forEach(function (el) {
+    el.addEventListener('click', function () {
+      items.forEach(function (x) { x.classList.remove('active'); });
+      el.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

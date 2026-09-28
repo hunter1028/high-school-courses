@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>第一章 空间向量与立体几何</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script>
+    window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }, svg: { fontCache: 'global' } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body class="chapter-page">
+  <div class="chapter-doc">
+      <section class="chap-head">
+        <p class="chap-meta">把立体几何初步中的位置关系转化为向量运算；高考常在选择、填空或解答题的关键设问中考查，重点是建系、法向量与角、距离。</p>
+      </section>
+
+      <section id="overview" class="card">
+        <h2>一、章节速览</h2>
+        <div class="learning-route">
+          <div class="route-row"><b>基础</b><p>坐标、数量积、模长与夹角</p><span>$\overrightarrow{AB}=B-A$ 不写反</span></div>
+          <div class="route-row"><b>核心</b><p>方向向量、法向量、线面与面面关系</p><span>法向量须代回验算</span></div>
+          <div class="route-row"><b>提升</b><p>动点参数、范围与存在性</p><span>参数必须检验范围</span></div>
+        </div>
+      </section>
+
+      <section id="knowledge" class="card">
+        <h2>二、知识清单</h2>
+        <h3 id="vector-basics">1. 基本概念与向量表示</h3>
+        <div class="subsection">
+          <dl class="definition-list">
+            <div><dt>单位向量</dt><dd>模等于 $1$ 的向量。若 $\mathbf a\ne\mathbf0$，与 $\mathbf a$ 同方向的单位向量是 $\mathbf e=\dfrac{\mathbf a}{|\mathbf a|}$，所以 $\mathbf a=|\mathbf a|\mathbf e$。</dd></div>
+            <div><dt>基</dt><dd>能够唯一表示目标范围内全部向量的一组线性无关向量。基向量不要求模为 $1$；直角坐标系中的 $\mathbf i,\mathbf j,\mathbf k$ 是一组单位正交基。</dd></div>
+            <div><dt>维数</dt><dd>一组基中向量的个数。一条直线需要 $1$ 个独立方向，一个平面需要 $2$ 个，空间需要 $3$ 个。</dd></div>
+          </dl>
+
+          <div class="representation-list">
+            <div class="representation-row">
+              <b>一维</b>
+              <div><div class="formula compact">$\mathbf e_1\ne\mathbf0:\quad \mathbf p\parallel\mathbf e_1\Longleftrightarrow \exists!\,x\in\mathbb R,\ \mathbf p=x\mathbf e_1$</div></div>
+            </div>
+            <div class="representation-row">
+              <b>二维</b>
+              <div>
+                <div class="formula compact">$\mathbf e_1,\mathbf e_2$ 不共线：$\quad \mathbf p,\mathbf e_1,\mathbf e_2\text{ 共面}\Longleftrightarrow \exists!\,x,y\in\mathbb R,\ \mathbf p=x\mathbf e_1+y\mathbf e_2$</div>
+                <p>这就是平面向量基本定理的充要条件形式。</p>
+              </div>
+            </div>
+            <div class="representation-row">
+              <b>三维</b>
+              <div><div class="formula compact">$\mathbf e_1,\mathbf e_2,\mathbf e_3$ 不共面：$\quad \forall\,\mathbf p,\ \exists!\,x,y,z\in\mathbb R,\ \mathbf p=x\mathbf e_1+y\mathbf e_2+z\mathbf e_3$</div></div>
+            </div>
+          </div>
+
+          <article id="vector-coplanarity" class="concept-row">
+            <div class="concept-copy">
+              <h4>四点共面</h4>
+              <div class="formula">若 $\overrightarrow{AB},\overrightarrow{AC}$ 不共线，则
+                $A,B,C,D$ 共面 $\Longleftrightarrow \exists\,x,y\in\mathbb R$，使
+                $\overrightarrow{AD}=x\overrightarrow{AB}+y\overrightarrow{AC}$。</div>
+              <p>两个不共线方向张成平面；$\overrightarrow{AD}$ 能由它们合成，点 $D$ 就在这个平面内。</p>
+            </div>
+            <figure class="diagram">
+              <svg viewBox="0 0 360 190" width="360" height="190" role="img" aria-label="四点共面与向量线性表示示意图">
+                <defs><marker id="arrow-coplanar" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="context-stroke"/></marker></defs>
+                <polygon class="plane" points="20,170 245,170 340,65 115,65"/>
+                <path d="M42 153 L225 153" class="key" marker-end="url(#arrow-coplanar)"/>
+                <path d="M42 153 L111 75" class="green" stroke-width="3" fill="none" marker-end="url(#arrow-coplanar)"/>
+                <path d="M42 153 L210 96" class="red" stroke-width="3" fill="none" marker-end="url(#arrow-coplanar)"/>
+                <path d="M145 153 L210 96 M100 126 L210 96" class="hidden dash"/>
+                <circle class="point" cx="42" cy="153" r="4"/><circle class="point" cx="225" cy="153" r="4"/><circle class="point" cx="111" cy="75" r="4"/><circle class="red" cx="210" cy="96" r="4"/>
+                <text x="28" y="174">A</text><text x="230" y="170">B</text><text x="101" y="59">C</text><text x="220" y="91">D</text>
+                <text x="128" y="146">AB</text><text x="65" y="104">AC</text><text x="119" y="106">AD</text>
+              </svg>
+            </figure>
+          </article>
+        </div>
+
+        <h3 id="coordinates-dot-product">2. 坐标与数量积</h3>
+        <div class="subsection">
+          <div class="knowledge-grid">
+            <div class="knowledge-item"><b>两点向量</b><p>$\overrightarrow{AB}=(x_B-x_A,y_B-y_A,z_B-z_A)$</p></div>
+            <div class="knowledge-item"><b>数量积</b><p>$\mathbf a\cdot\mathbf b=x_1x_2+y_1y_2+z_1z_2$</p></div>
+            <div class="knowledge-item"><b>垂直</b><p>$\mathbf a\cdot\mathbf b=0$</p></div>
+            <div class="knowledge-item"><b>平行</b><p>$\mathbf a=\lambda\mathbf b$</p></div>
+          </div>
+          <p>数量积本身<b>不加绝对值</b>：同向夹角锐时为正，垂直时为 $0$，夹角钝时为负。绝对值只在求“不分方向的锐角”时才出现。</p>
+        </div>
+
+        <h3 id="normal-vector">3. 法向量</h3>
+        <div class="subsection">
+          <article id="normal-definition" class="concept-row">
+            <div class="concept-copy">
+              <h4>定义与判定</h4>
+              <p><b>定义：</b>与平面 $\alpha$ 内每一个向量都垂直的非零向量，叫作平面 $\alpha$ 的法向量，记作 $\mathbf n$。</p>
+              <div class="formula">若不共线向量 $\mathbf a,\mathbf b$ 在平面 $\alpha$ 内，则
+                $\mathbf n$ 是 $\alpha$ 的法向量
+                $\Longleftrightarrow \mathbf n\ne\mathbf0,\ \mathbf n\cdot\mathbf a=0,\ \mathbf n\cdot\mathbf b=0$。</div>
+            </div>
+            <figure class="diagram">
+              <svg viewBox="0 0 330 200" width="330" height="200" role="img" aria-label="平面内两个不共线向量与法向量示意图">
+                <defs><marker id="arrow-normal" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="context-stroke"/></marker></defs>
+                <polygon class="plane" points="30,175 235,175 305,113 100,113"/>
+                <path class="key" d="M145 145 L240 145" marker-end="url(#arrow-normal)"/>
+                <path class="green" d="M145 145 L88 119" stroke-width="3" fill="none" marker-end="url(#arrow-normal)"/>
+                <path class="red" d="M145 145 L145 35" stroke-width="3" fill="none" marker-end="url(#arrow-normal)"/>
+                <path class="right-angle" d="M145 131 H159 V145"/>
+                <circle class="point" cx="145" cy="145" r="4"/>
+                <text x="132" y="164">O</text><text x="244" y="140">a</text><text x="72" y="117">b</text><text x="154" y="48">n</text><text x="276" y="119">α</text>
+              </svg>
+            </figure>
+          </article>
+
+          <article class="worked-example">
+            <h4>例：求一个法向量</h4>
+            <p>已知平面内两个不共线向量 $\mathbf a=(1,1,0)$，$\mathbf b=(0,1,1)$，求该平面的一个法向量。</p>
+            <div class="example-steps">
+              <p><b>设：</b>$\mathbf n=(x,y,z)$。</p>
+              <p><b>列：</b>$\mathbf n\cdot\mathbf a=x+y=0$，$\mathbf n\cdot\mathbf b=y+z=0$。</p>
+              <p><b>取：</b>令 $y=1$，得 $x=-1,\ z=-1$，所以可取 $\mathbf n=(-1,1,-1)$。</p>
+              <p><b>验：</b>$(-1,1,-1)\cdot(1,1,0)=0$，$(-1,1,-1)\cdot(0,1,1)=0$。</p>
+            </div>
+          </article>
+        </div>
+
+        <h3 id="angle-reference">4. 角</h3>
+        <div class="subsection concept-stack">
+          <article id="angle-vectors" class="concept-row">
+            <div class="concept-copy"><h4>两向量夹角</h4><div class="formula">$\cos\theta=\dfrac{\mathbf u\cdot\mathbf v}{|\mathbf u||\mathbf v|}$</div><p class="value-range">$\theta\in[0,\pi]$</p></div>
+            <figure class="diagram"><svg viewBox="0 0 300 165" width="300" height="165" role="img" aria-label="两向量夹角示意图"><defs><marker id="arrow-angle-vector" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="context-stroke"/></marker></defs><path class="key" d="M70 132 L255 132" marker-end="url(#arrow-angle-vector)"/><path class="green" d="M70 132 L30 32" stroke-width="3" fill="none" marker-end="url(#arrow-angle-vector)"/><path class="angle-arc" d="M108 132 A38 38 0 0 0 55 97"/><circle class="point" cx="70" cy="132" r="4"/><text x="58" y="151">O</text><text x="248" y="122">u</text><text x="18" y="35">v</text><text x="80" y="95">θ</text></svg><figcaption>向量有方向，因此夹角可以是钝角。</figcaption></figure>
+          </article>
+          <article id="angle-lines" class="concept-row">
+            <div class="concept-copy"><h4>两直线所成角</h4><div class="formula">$\cos\theta=\dfrac{|\mathbf u\cdot\mathbf v|}{|\mathbf u||\mathbf v|}$</div><p class="value-range">$\theta\in[0,\frac\pi2]$；若确定为异面直线，$\theta\in(0,\frac\pi2]$</p></div>
+            <figure class="diagram"><svg viewBox="0 0 300 165" width="300" height="165" role="img" aria-label="两直线较小夹角示意图"><path class="edge" d="M25 126 L275 126 M25 156 L275 96"/><path class="angle-arc" d="M190 126 A40 40 0 0 0 188.9 116.6"/><circle class="point" cx="150" cy="126" r="4"/><text x="260" y="118">l₁</text><text x="260" y="91">l₂</text><text x="194" y="112">θ</text></svg><figcaption>取两条直线方向的较小夹角；平行时为 $0$。</figcaption></figure>
+          </article>
+          <article id="angle-line-plane" class="concept-row">
+            <div class="concept-copy"><h4>直线与平面所成角</h4><div class="formula">$\sin\theta=\dfrac{|\mathbf u\cdot\mathbf n|}{|\mathbf u||\mathbf n|}$</div><p class="value-range">$\theta\in[0,\frac\pi2]$</p></div>
+            <figure class="diagram"><svg viewBox="0 0 320 190" width="320" height="190" role="img" aria-label="直线与平面所成角及法向量示意图"><defs><marker id="arrow-line-plane" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="context-stroke"/></marker></defs><polygon class="plane" points="20,166 225,166 300,105 95,105"/><path class="key" d="M105 145 L252 55" marker-end="url(#arrow-line-plane)"/><path class="hidden dash" d="M105 145 L252 145"/><path class="red" d="M105 145 L105 38" stroke-width="3" fill="none" marker-end="url(#arrow-line-plane)"/><path class="angle-arc" d="M145 145 A40 40 0 0 0 139 124"/><path class="right-angle" d="M105 131 H119 V145"/><circle class="point" cx="105" cy="145" r="4"/><text x="93" y="165">O</text><text x="246" y="51">u</text><text x="114" y="48">n</text><text x="145" y="122">θ</text><text x="274" y="111">α</text></svg><figcaption>$\theta$ 是直线与它在平面内投影的夹角；$\mathbf n\perp\alpha$。</figcaption></figure>
+          </article>
+          <article id="angle-planes" class="concept-row">
+            <div class="concept-copy"><h4>两平面的较小夹角</h4><div class="formula">$\cos\theta=\dfrac{|\mathbf n_1\cdot\mathbf n_2|}{|\mathbf n_1||\mathbf n_2|}$</div><p class="value-range">$\theta\in[0,\frac\pi2]$</p></div>
+            <figure class="diagram"><svg viewBox="0 0 320 190" width="320" height="190" role="img" aria-label="两个平面及其法向量夹角示意图"><defs><marker id="arrow-two-planes" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="context-stroke"/></marker></defs><polygon class="plane" points="25,158 235,158 300,110 90,110"/><polygon points="90,110 300,110 235,35 25,35" fill="#dcfce7" stroke="#86c9a8" stroke-width="1.5" opacity=".7"/><path class="red" d="M160 110 L160 30" stroke-width="3" fill="none" marker-end="url(#arrow-two-planes)"/><path class="green" d="M160 110 L225 58" stroke-width="3" fill="none" marker-end="url(#arrow-two-planes)"/><path class="angle-arc" d="M160 75 A35 35 0 0 1 183 83"/><text x="169" y="36">n₁</text><text x="226" y="58">n₂</text><text x="183" y="82">θ</text><text x="275" y="116">α</text><text x="273" y="101">β</text></svg><figcaption>两平面的较小夹角等于两条法向量的较小夹角。</figcaption></figure>
+          </article>
+          <article id="angle-dihedral" class="concept-row">
+            <div class="concept-copy"><h4>二面角</h4><div class="formula">先求 $\varphi=\arccos\dfrac{\mathbf n_1\cdot\mathbf n_2}{|\mathbf n_1||\mathbf n_2|}$，再由二面角内部确定 $\theta=\varphi$ 或 $\theta=\pi-\varphi$。</div><p class="value-range">$\theta\in[0,\pi]$</p></div>
+            <figure class="diagram"><svg viewBox="0 0 300 170" width="300" height="170" role="img" aria-label="二面角截面示意图"><path class="edge" d="M55 140 L150 82 L258 137 M150 82 L150 26"/><path class="angle-arc" d="M113 105 A44 44 0 0 0 188 106"/><circle class="point" cx="150" cy="82" r="4"/><text x="143" y="19">棱</text><text x="144" y="124">θ</text><text x="42" y="151">半平面1</text><text x="221" y="151">半平面2</text></svg><figcaption>先看题目指定的两个半平面，再判断取法向量夹角还是补角。</figcaption></figure>
+          </article>
+        </div>
+
+        <h3 id="distance-reference">5. 距离</h3>
+        <div class="subsection concept-stack">
+          <article id="distance-point-plane" class="concept-row">
+            <div class="concept-copy"><h4>点到平面的距离</h4><p><b>定义：</b>点 $P$ 到平面 $\alpha$ 的垂线段 $PH$ 的长度。</p><div class="formula">$A\in\alpha,\ \mathbf n\perp\alpha:\quad d(P,\alpha)=\dfrac{|\overrightarrow{AP}\cdot\mathbf n|}{|\mathbf n|}=|\overrightarrow{AP}|\left|\cos\angle(\overrightarrow{AP},\mathbf n)\right|$</div></div>
+            <figure class="diagram"><svg viewBox="0 0 330 205" width="330" height="205" role="img" aria-label="点到平面的距离、法向量与投影关系示意图"><defs><marker id="arrow-point-plane" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="context-stroke"/></marker></defs><polygon class="plane" points="20,185 245,185 315,126 90,126"/><path class="hidden dash" d="M75 169 L182 35"/><path class="green" d="M75 169 L75 72" stroke-width="3" fill="none" marker-end="url(#arrow-point-plane)"/><path class="red" d="M182 35 L182 153" stroke-width="3" fill="none"/><path class="right-angle" d="M182 139 H196 V153"/><circle class="auxiliary-point" cx="75" cy="169" r="4"/><circle class="red" cx="182" cy="35" r="4"/><circle class="point" cx="182" cy="153" r="4"/><text x="61" y="187">A</text><text x="191" y="35">P</text><text x="191" y="172">H</text><text x="84" y="82">n</text><text x="194" y="97">d</text><text x="286" y="132">α</text><text x="116" y="93">AP</text></svg><figcaption>$\mathbf n\parallel\overrightarrow{PH}$；虚线 $AP$ 在法向量方向上的投影就是距离。</figcaption></figure>
+          </article>
+          <article id="distance-point-line" class="concept-row">
+            <div class="concept-copy"><h4>点到直线的距离</h4><p><b>定义：</b>点 $P$ 到直线 $l$ 的垂线段 $PH$ 的长度。</p><div class="formula">$A\in l,\ \mathbf u\parallel l:\quad d(P,l)=\sqrt{|\overrightarrow{AP}|^2-\left(\dfrac{\overrightarrow{AP}\cdot\mathbf u}{|\mathbf u|}\right)^2}$</div></div>
+            <figure class="diagram"><svg viewBox="0 0 330 190" width="330" height="190" role="img" aria-label="点到直线的距离与向量分解示意图"><defs><marker id="arrow-point-line" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="context-stroke"/></marker></defs><path class="edge" d="M25 158 L305 104"/><path class="hidden dash" d="M80 147.393 L164 30"/><path class="key" d="M80 147.393 L200 124.25" marker-end="url(#arrow-point-line)"/><path class="red" d="M164.76 33.93 L182.816 127.564" stroke-width="3" fill="none"/><path class="right-angle" d="M180.165 113.817 L193.911 111.166 L196.563 124.913"/><circle class="auxiliary-point" cx="80" cy="147.393" r="4"/><circle class="red" cx="164" cy="30" r="4"/><circle class="point" cx="182.816" cy="127.564" r="4"/><text x="66" y="168">A</text><text x="173" y="30">P</text><text x="174" y="148">H</text><text x="207" y="118">u</text><text x="292" y="96">l</text><text x="121" y="80">AP</text></svg><figcaption>$\overrightarrow{AP}=\overrightarrow{AH}+\overrightarrow{HP}$，其中 $AH\parallel\mathbf u$，$PH\perp\mathbf u$。</figcaption></figure>
+          </article>
+          <article id="distance-line-plane" class="concept-row compact-row">
+            <div class="concept-copy"><h4>平行直线与平面</h4><div class="formula">$l\parallel\alpha,\ P\in l:\quad d(l,\alpha)=d(P,\alpha)$</div></div>
+            <figure class="diagram"><svg viewBox="0 0 310 165" width="310" height="165" role="img" aria-label="平行直线与平面距离示意图"><polygon class="plane" points="20,150 220,150 290,96 90,96"/><path class="key" d="M62 54 L236 54"/><circle class="red" cx="150" cy="54" r="4"/><circle class="point" cx="150" cy="122" r="4"/><path class="red" d="M150 58 V122" stroke-width="3"/><path class="right-angle" d="M150 109 H163 V122"/><text x="159" y="50">P</text><text x="159" y="141">H</text><text x="239" y="49">l</text><text x="266" y="102">α</text></svg><figcaption>直线上任一点到平面的垂距都相等。</figcaption></figure>
+          </article>
+          <article id="distance-planes" class="concept-row compact-row">
+            <div class="concept-copy"><h4>两个平行平面</h4><div class="formula">$\alpha\parallel\beta,\ P\in\alpha:\quad d(\alpha,\beta)=d(P,\beta)$</div></div>
+            <figure class="diagram"><svg viewBox="0 0 310 175" width="310" height="175" role="img" aria-label="两个平行平面距离示意图"><polygon class="plane" points="20,65 220,65 290,18 90,18"/><polygon class="plane" points="20,160 220,160 290,113 90,113"/><circle class="red" cx="155" cy="42" r="4"/><circle class="point" cx="155" cy="137" r="4"/><path class="red" d="M155 46 V137" stroke-width="3"/><path class="right-angle" d="M155 124 H168 V137"/><text x="164" y="41">P</text><text x="164" y="155">H</text><text x="265" y="25">α</text><text x="265" y="120">β</text></svg><figcaption>从一个平面内任一点向另一平面作垂线。</figcaption></figure>
+          </article>
+          <article id="distance-parallel-lines" class="concept-row compact-row">
+            <div class="concept-copy"><h4>两条平行直线</h4><div class="formula">$l_1\parallel l_2,\ P\in l_1:\quad d(l_1,l_2)=d(P,l_2)$</div></div>
+            <figure class="diagram"><svg viewBox="0 0 310 155" width="310" height="155" role="img" aria-label="两条平行直线距离示意图"><path class="edge" d="M35 45 L280 45 M35 126 L280 126"/><circle class="red" cx="155" cy="45" r="4"/><circle class="point" cx="155" cy="126" r="4"/><path class="red" d="M155 49 V126" stroke-width="3"/><path class="right-angle" d="M155 113 H168 V126"/><text x="164" y="38">P</text><text x="164" y="146">H</text><text x="281" y="40">l₁</text><text x="281" y="121">l₂</text></svg><figcaption>任取 $P\in l_1$，向 $l_2$ 作垂线。</figcaption></figure>
+          </article>
+          <article id="distance-skew-lines" class="concept-row compact-row">
+            <div class="concept-copy"><h4>两条异面直线</h4><div class="formula">$P\in l_1,\ Q\in l_2,\ PQ\perp l_1,\ PQ\perp l_2:\quad d(l_1,l_2)=|PQ|$</div></div>
+            <figure class="diagram"><svg viewBox="0 0 320 175" width="320" height="175" role="img" aria-label="异面直线公垂线距离示意图"><path class="edge" d="M25 48 L205 48 M115 145 L295 105"/><circle class="red" cx="145" cy="48" r="4"/><circle class="point" cx="167" cy="133.4" r="4"/><path class="red" d="M145 52 L167 133.4" stroke-width="3"/><text x="133" y="39">P</text><text x="171" y="151">Q</text><text x="209" y="43">l₁</text><text x="294" y="100">l₂</text><text x="151" y="92">d</text></svg><figcaption>公垂线段 $PQ$ 同时垂直两条异面直线。</figcaption></figure>
+          </article>
+        </div>
+      </section>
+
+      <section id="methods" class="card">
+        <h2>三、方法模板</h2>
+        <h3>1. 建系</h3>
+        <div class="method-split">
+          <figure class="diagram"><svg viewBox="0 0 420 230" width="420" height="230" role="img" aria-label="空间直角坐标系与长方体建系示意图"><defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#2457d6"/></marker></defs><path class="edge" d="M85 180 L250 180 L320 125 L155 125 Z M85 180 L85 70 L250 70 L250 180 M250 70 L320 15 L320 125 M85 70 L155 15 L320 15 M155 15 L155 125"/><path d="M85 180 L285 180" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arrow)"/><path d="M85 180 L155 125" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arrow)"/><path d="M85 180 L85 45" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arrow)"/><text x="292" y="184">x</text><text x="160" y="120">y</text><text x="73" y="42">z</text><text x="60" y="199">A/O</text><text x="253" y="198">B</text><text x="154" y="143">D</text><text x="62" y="68">A₁</text><text x="120" y="214">三条互相垂直的棱 → 坐标轴</text></svg></figure>
+          <ul class="tight-list">
+            <li>正方体、长方体、直棱柱：直接沿三条互相垂直的棱建系。</li>
+            <li>有中点、垂足或对称中心：优先设为原点。</li>
+            <li>动点：$P=A+t(B-A)$；在线段上写 $0\le t\le1$。</li>
+          </ul>
+        </div>
+
+        <h3>2. 证明题</h3>
+        <div class="flow"><span>线线垂直：$\mathbf u\cdot \mathbf v=0$</span><b>→</b><span>线面垂直：$\mathbf u\parallel \mathbf n$</span><b>→</b><span>面面垂直：$\mathbf n_1\cdot \mathbf n_2=0$</span></div>
+
+        <h3>3. 求角题</h3>
+        <div class="flow"><span>线线：方向向量</span><b>→</b><span>线面：方向向量 + 法向量，用 $\sin$</span><b>→</b><span>面面：两个法向量</span></div>
+
+        <h3>4. 参数题</h3>
+        <div class="flow"><span>设参数</span><b>→</b><span>写范围</span><b>→</b><span>翻译条件</span><b>→</b><span>解方程</span><b>→</b><span>检验范围</span></div>
+      </section>
+
+      <section id="errors" class="card">
+        <h2>四、易错</h2>
+        <div class="error-list">
+          <p><b>向量写反：</b>$\overrightarrow{AB}=B-A$。</p>
+          <p><b>线面角用错：</b>方向向量与法向量对应的是 $\sin\theta$。</p>
+          <p><b>二面角不判锐钝：</b>法向量夹角可能是补角。</p>
+          <p><b>动点忘范围：</b>线段：$0\le t\le1$；直线：$t\in\mathbb R$。</p>
+        </div>
+      </section>
+
+      <section id="basic" class="card">
+        <div class="sec-head"><h2>五、基础练习（25分钟）</h2><button class="print-btn" type="button" data-print="section" data-target="#basic">打印</button></div>
+        <details class="practice-fold">
+          <summary>展开 25 题</summary>
+          <div class="exercise-group"><h3>坐标与向量</h3>
+        <div class="exercise"><p><span class="pill">坐标</span><strong>1.</strong> 已知 $A(1,2,-1)$，$B(3,-1,4)$，求 $\overrightarrow{AB}$ 与 $|AB|$。</p>
+<details><summary>答案</summary><p>$\overrightarrow{AB}=(2,-3,5)$，$|AB|=\sqrt{38}$。</p></details></div>
+        <div class="exercise"><p><span class="pill">坐标</span><strong>2.</strong> 已知 $A(1,2,-1)$，$B(3,-1,4)$，求 $\overrightarrow{BA}$。</p>
+<details><summary>答案</summary><p>$\overrightarrow{BA}=(-2,3,-5)$。</p></details></div>
+        <div class="exercise"><p><span class="pill">模长</span><strong>3.</strong> 已知 $A(0,1,2)$，$B(2,-1,4)$，求 $|AB|$。</p>
+<details><summary>答案</summary><p>$\overrightarrow{AB}=(2,-2,2)$，$|AB|=2\sqrt3$。</p></details></div>
+        <div class="exercise"><p><span class="pill">数量积</span><strong>4.</strong> 已知 $\mathbf a=(1,-2,2)$，$\mathbf b=(3,0,-1)$，求 $\mathbf a\cdot\mathbf b$ 和夹角余弦值。</p>
+<details><summary>答案</summary><p>$\mathbf a\cdot\mathbf b=1$，$|\mathbf a|=3$，$|\mathbf b|=\sqrt{10}$，$\cos\theta=\dfrac1{3\sqrt{10}}$。</p></details></div>
+        <div class="exercise"><p><span class="pill">垂直</span><strong>5.</strong> 判断 $\mathbf a=(1,2,2)$ 与 $\mathbf b=(2,1,-2)$ 是否垂直。</p>
+<details><summary>答案</summary><p>$\mathbf a\cdot\mathbf b=2+2-4=0$，所以垂直。</p></details></div>
+        <div class="exercise"><p><span class="pill">平行</span><strong>6.</strong> 判断 $\mathbf a=(2,-1,1)$ 与 $\mathbf b=(-4,2,-2)$ 是否平行。</p>
+<details><summary>答案</summary><p>$\mathbf b=-2\mathbf a$，所以平行。</p></details></div>
+        <div class="exercise"><p><span class="pill">夹角</span><strong>7.</strong> 求 $\mathbf a=(1,0,1)$ 与 $\mathbf b=(0,1,1)$ 的夹角。</p>
+<details><summary>答案</summary><p>$\cos\theta=\dfrac1{\sqrt2\cdot\sqrt2}=\dfrac12$，$\theta=60^\circ$。</p></details></div>
+          </div><div class="exercise-group"><h3>法向量与空间向量</h3>
+        <div class="exercise"><p><span class="pill">法向量</span><strong>8.</strong> 平面经过 $A(1,0,0)$，$B(0,1,0)$，$C(0,0,1)$，求一个法向量。</p>
+<details><summary>答案</summary><p>平面 $x+y+z=1$，法向量可取 $(1,1,1)$。</p></details></div>
+        <div class="exercise"><p><span class="pill">法向量</span><strong>9.</strong> 平面经过 $A(1,0,0)$，$B(0,1,0)$，$C(0,0,2)$，求一个法向量。</p>
+<details><summary>答案</summary><p>平面 $2x+2y+z=2$，法向量可取 $(2,2,1)$。</p></details></div>
+        <div class="exercise"><p><span class="pill">法向量</span><strong>10.</strong> 平面过原点且含 $\mathbf a=(1,1,0)$，$\mathbf b=(1,0,1)$，求一个法向量。</p>
+<details><summary>答案</summary><p>由 $x+y=0$，$x+z=0$ 取 $\mathbf n=(1,-1,-1)$。</p></details></div>
+        <div class="exercise"><p><span class="pill">单位向量</span><strong>11.</strong> 已知 $\mathbf a=(2,-1,3)$，求 $|\mathbf a|$ 及与 $\mathbf a$ 同向的单位向量。</p>
+<details><summary>答案</summary><p>$|\mathbf a|=\sqrt{14}$，单位向量为 $\dfrac{(2,-1,3)}{\sqrt{14}}$。</p></details></div>
+        <div class="exercise"><p><span class="pill">分点</span><strong>12.</strong> $P$ 在线段 $AB$ 上，$A(1,2,0)$，$B(5,-2,4)$，且 $AP:PB=1:3$，求 $P$。</p>
+<details><summary>答案</summary><p>$P=A+\frac14(B-A)=(2,1,1)$。</p></details></div>
+        <div class="exercise"><p><span class="pill">分点</span><strong>13.</strong> $M$ 在线段 $AB$ 上，$A(1,0,0)$，$B(3,2,4)$，且 $AM:MB=3:1$，求 $M$。</p>
+<details><summary>答案</summary><p>$M=A+\frac34(B-A)=\left(\frac52,\frac32,3\right)$。</p></details></div>
+          </div><div class="exercise-group"><h3>空间角</h3>
+        <div class="exercise"><p><span class="pill">线面角</span><strong>14.</strong> 直线方向向量 $\mathbf u=(1,2,2)$，平面法向量 $\mathbf n=(0,0,1)$，求线面角的正弦值。</p>
+<details><summary>答案</summary><p>$\sin\theta=\dfrac{|\mathbf u\cdot\mathbf n|}{|\mathbf u||\mathbf n|}=\dfrac23$。</p></details></div>
+        <div class="exercise"><p><span class="pill">线面角</span><strong>15.</strong> 正方体棱长为 $2$，取 $A(0,0,0)$，$B(2,0,0)$，$D(0,2,0)$，$A_1(0,0,2)$。求 $AC_1$ 与底面 $ABCD$ 所成角的正弦值。</p>
+<details><summary>答案</summary><p>$\overrightarrow{AC_1}=(2,2,2)$，底面法向量 $\mathbf n=(0,0,1)$，$\sin\theta=\dfrac{2}{2\sqrt3}=\dfrac1{\sqrt3}$。</p></details></div>
+        <div class="exercise"><p><span class="pill">二面角</span><strong>16.</strong> 两平面的法向量为 $\mathbf n_1=(1,0,1)$，$\mathbf n_2=(0,1,1)$，求两平面的锐夹角。</p>
+<details><summary>答案</summary><p>$\cos\theta=\dfrac{|1|}{\sqrt2\sqrt2}=\dfrac12$，$\theta=60^\circ$。</p></details></div>
+        <div class="exercise"><p><span class="pill">二面角</span><strong>17.</strong> 两平面的法向量为 $\mathbf n_1=(1,1,0)$，$\mathbf n_2=(1,0,1)$，求两平面的锐夹角。</p>
+<details><summary>答案</summary><p>$\cos\theta=\dfrac{|1|}{\sqrt2\sqrt2}=\dfrac12$，$\theta=60^\circ$。</p></details></div>
+          </div><div class="exercise-group"><h3>距离与参数</h3>
+        <div class="exercise"><p><span class="pill">点面距</span><strong>18.</strong> 求点 $P(1,1,1)$ 到平面 $x+2y+2z-9=0$ 的距离。</p>
+<details><summary>答案</summary><p>$d=\dfrac{|1+2+2-9|}{\sqrt{1^2+2^2+2^2}}=\dfrac43$。</p></details></div>
+        <div class="exercise"><p><span class="pill">点面距</span><strong>19.</strong> 求点 $P(1,1,2)$ 到平面 $2x-y+2z+1=0$ 的距离。</p>
+<details><summary>答案</summary><p>$d=\dfrac{|2-1+4+1|}{3}=2$。</p></details></div>
+        <div class="exercise"><p><span class="pill">点线距</span><strong>20.</strong> 点 $A(1,0,2)$ 到过原点、方向向量为 $(1,2,2)$ 的直线的距离。</p>
+<details><summary>答案</summary><p>$d^2=5-\dfrac{25}{9}=\dfrac{20}{9}$，$d=\dfrac{2\sqrt5}{3}$。</p></details></div>
+        <div class="exercise"><p><span class="pill">点线距</span><strong>21.</strong> 点 $A(1,0,0)$ 到过原点、方向向量为 $(1,1,1)$ 的直线的距离。</p>
+<details><summary>答案</summary><p>$d^2=1-\dfrac13=\dfrac23$，$d=\dfrac{\sqrt6}{3}$。</p></details></div>
+        <div class="exercise"><p><span class="pill">点面距</span><strong>22.</strong> 在正方体 $ABCD-A_1B_1C_1D_1$ 中，棱长为 $1$，取 $A(0,0,0)$，$B(1,0,0)$，$D(0,1,0)$，$A_1(0,0,1)$。求点 $C$ 到平面 $A_1BD$ 的距离。</p>
+<details><summary>答案</summary><p>平面 $A_1BD$ 过 $A_1(0,0,1)$，$B(1,0,0)$，$D(0,1,0)$，方程为 $x+y+z=1$。所以 $d=\dfrac{|1+1+0-1|}{\sqrt3}=\dfrac1{\sqrt3}$。</p></details></div>
+        <div class="exercise"><p><span class="pill">参数点</span><strong>23.</strong> 正方体棱长为 $2$，$P$ 在线段 $A_1B_1$ 上，$P=A_1+t(B_1-A_1)$，$0\le t\le1$。若 $BP$ 与平面 $ADD_1A_1$ 所成角为 $45^\circ$，求 $t$。</p>
+<details><summary>答案</summary><p>$\overrightarrow{BP}=(2t-2,0,2)$，$\sin\theta=\dfrac{|2t-2|}{\sqrt{(2t-2)^2+4}}=\dfrac1{\sqrt2}$，得 $t=0$（此时 $P=A_1$）或 $t=2$（舍），故 $t=0$。</p></details></div>
+        <div class="exercise"><p><span class="pill">垂直·参数</span><strong>24.</strong> 已知 $\mathbf a=(1,\lambda,2)$，$\mathbf b=(2,1,-2)$，若 $\mathbf a\perp\mathbf b$，求 $\lambda$。</p>
+<details><summary>答案</summary><p>$\mathbf a\cdot\mathbf b=2+\lambda-4=\lambda-2=0$，所以 $\lambda=2$。</p></details></div>
+        <div class="exercise"><p><span class="pill">综合</span><strong>25.</strong> 已知 $A(1,0,0)$，$B(0,1,0)$，$C(0,0,1)$，$D(1,1,1)$。求点 $D$ 到平面 $ABC$ 的距离。</p>
+<details><summary>答案</summary><p>平面 $ABC: x+y+z=1$，$d=\dfrac{|1+1+1-1|}{\sqrt3}=\dfrac{2\sqrt3}{3}$。</p></details></div>
+          </div>
+        </details>
+      </section>
+
+      <section id="simulation" class="card">
+        <div class="sec-head"><h2>六、模拟练习</h2><button class="print-btn" type="button" data-print="section" data-target="#simulation">打印</button></div>
+        <details class="practice-fold">
+          <summary>展开 4 题</summary>
+
+        <div class="exercise" id="sim1">
+          <p><strong>1.</strong> 在三棱锥 $P-ABC$ 中，$A(0,0,0)$，$B(2,0,0)$，$C(0,2,0)$，$P(0,0,3)$。<br>（1）证明 $PA\perp$ 平面 $ABC$；（2）求直线 $PB$ 与平面 $ABC$ 所成角的正弦值；（3）求平面 $PBC$ 与平面 $ABC$ 的锐夹角余弦值。</p>
+          <figure class="diagram"><svg viewBox="0 0 360 250" width="360" height="250" role="img" aria-label="三棱锥坐标示意图"><polygon class="plane" points="70,190 250,190 150,120"/><path class="edge" d="M70 190 L250 190 L150 120 Z M70 190 L110 40 L250 190 M110 40 L150 120"/><path class="key" d="M110 40 L250 190"/><circle class="point" cx="70" cy="190" r="4"/><circle class="point" cx="250" cy="190" r="4"/><circle class="point" cx="150" cy="120" r="4"/><circle class="red" cx="110" cy="40" r="4"/><text x="55" y="210">A</text><text x="252" y="205">B</text><text x="152" y="116">C</text><text x="116" y="35">P</text><text x="205" y="133">PB</text></svg></figure>
+          <details><summary>规范作答</summary><div class="exam-answer"><p><span class="label">解析：</span>三条侧棱 $PA,AB,AC$ 两两垂直，以 $A$ 为原点建系。证明用 $PA\parallel\mathbf n_0$；线面角写 $\sin\theta$；二面角用两个法向量、取锐角。</p>
+<p><span class="label">证明：</span>由题意得，平面 $ABC$ 为 $z=0$，其一个法向量为 $\mathbf n_0=(0,0,1)$。</p><p>因为 $\overrightarrow{PA}=(0,0,-3)$，所以 $\overrightarrow{PA}\parallel \mathbf n_0$，故 $PA\perp$ 平面 $ABC$。</p><p><span class="label">解：</span>$\overrightarrow{PB}=(2,0,-3)$。设 $PB$ 与平面 $ABC$ 所成角为 $\theta$，则</p><div class="formula">$\sin\theta=\dfrac{|\overrightarrow{PB}\cdot \mathbf n_0|}{|\overrightarrow{PB}||\mathbf n_0|}=\dfrac3{\sqrt{13}}$。</div><p>平面 $PBC$ 内，$\overrightarrow{BC}=(-2,2,0)$，$\overrightarrow{BP}=(-2,0,3)$。设平面 $PBC$ 的法向量为 $\mathbf n=(x,y,z)$，则</p><div class="formula">$\begin{cases}-2x+2y=0,\\-2x+3z=0.\end{cases}$</div><p>取 $\mathbf n=(3,3,2)$。因为平面 $ABC$ 的法向量为 $\mathbf n_0=(0,0,1)$，所以两平面的锐夹角余弦值为</p><div class="formula">$\dfrac{|\mathbf n\cdot \mathbf n_0|}{|\mathbf n||\mathbf n_0|}=\dfrac2{\sqrt{22}}$。</div></div></details></div>
+
+        <div class="exercise" id="sim2">
+          <p><strong>2.</strong> 在长方体 $ABCD-A_1B_1C_1D_1$ 中，$AB=4$，$AD=3$，$AA_1=2$。点 $M$ 在线段 $DD_1$ 上，设 $DM=tDD_1$。若 $BM\perp AC_1$，求 $t$。</p>
+          <figure class="diagram"><svg viewBox="0 0 420 260" width="420" height="260" role="img" aria-label="长方体动点示意图"><path class="edge" d="M80 190 L260 190 L330 130 L150 130 Z M80 190 L80 75 L260 75 L260 190 M260 75 L330 15 L330 130 M80 75 L150 15 L330 15 M150 15 L150 130"/><path class="key" d="M260 190 L150 70"/><path class="green" d="M80 190 L330 15" stroke-width="3" fill="none"/><circle class="red" cx="150" cy="70" r="4"/><text x="66" y="210">A</text><text x="262" y="207">B</text><text x="142" y="148">D</text><text x="334" y="132">C</text><text x="61" y="72">A₁</text><text x="263" y="72">B₁</text><text x="334" y="18">C₁</text><text x="153" y="31">D₁</text><text x="158" y="73">M</text></svg></figure>
+          <details><summary>规范作答</summary><div class="exam-answer"><p><span class="label">解析：</span>建系后由 $DM=tDD_1$ 写 $M(0,3,2t)$ 并注明 $0\le t\le1$；把 $BM\perp AC_1$ 翻译成数量积为 $0$，解出的 $t$ 必须回代检验范围。</p>
+<p><span class="label">解：</span>以 $A$ 为原点，分别以 $AB,AD,AA_1$ 所在直线为 $x,y,z$ 轴，建立空间直角坐标系。</p><p>由题意得 $B(4,0,0)$，$D(0,3,0)$，$C_1(4,3,2)$。因为 $DM=tDD_1$，且 $M$ 在线段 $DD_1$ 上，所以 $M(0,3,2t)$，$0\le t\le1$。</p><p>于是 $\overrightarrow{BM}=(-4,3,2t)$，$\overrightarrow{AC_1}=(4,3,2)$。</p><p>因为 $BM\perp AC_1$，所以</p><div class="formula">$\overrightarrow{BM}\cdot\overrightarrow{AC_1}=-16+9+4t=0$。</div><p>解得 $t=\dfrac74$。但 $\dfrac74\notin[0,1]$，故线段 $DD_1$ 上不存在满足条件的点 $M$。</p></div></details></div>
+
+        <div class="exercise" id="sim3">
+          <p><strong>3.</strong> 已知四面体 $ABCD$ 中，$A(0,0,0)$，$B(2,0,0)$，$C(0,2,0)$，$D(0,1,2)$。求二面角 $A-BC-D$ 的余弦值（取锐角）。</p><details><summary>规范作答</summary><div class="exam-answer"><p><span class="label">解析：</span>平面 $ABC$ 即 $xOy$ 面，法向量可直接取 $(0,0,1)$；再求平面 $DBC$ 的法向量，最后按“取锐角”定余弦值正负。</p>
+<p><span class="label">解：</span>由题意得，平面 $ABC$ 的一个法向量为 $\mathbf n_1=(0,0,1)$。</p><p>平面 $DBC$ 内，$\overrightarrow{BC}=(-2,2,0)$，$\overrightarrow{BD}=(-2,1,2)$。设平面 $DBC$ 的法向量为 $\mathbf n_2=(x,y,z)$，则</p><div class="formula">$\begin{cases}-2x+2y=0,\\-2x+y+2z=0.\end{cases}$</div><p>取 $\mathbf n_2=(2,2,1)$。因为二面角取锐角，所以</p><div class="formula">$\cos\theta=\dfrac{|\mathbf n_1\cdot \mathbf n_2|}{|\mathbf n_1||\mathbf n_2|}=\dfrac13$。</div><p>故二面角 $A-BC-D$ 的余弦值为 $\dfrac13$。</p></div></details></div>
+
+        <div class="exercise" id="sim4">
+          <p><strong>4.</strong> 在正方体 $ABCD-A_1B_1C_1D_1$ 中，棱长为 $2$。点 $M$ 在线段 $AC$ 上，设 $M=A+t(C-A)$，$0\le t\le1$。是否存在 $M$，使 $B_1M\perp A_1D$？</p>
+          <figure class="diagram"><svg viewBox="0 0 360 250" width="360" height="250" role="img" aria-label="正方体动点示意图"><path class="edge" d="M70 190 L220 190 L290 130 L140 130 Z M70 190 L70 70 L220 70 L220 190 M220 70 L290 10 L290 130 M70 70 L140 10 L290 10 M140 10 L140 130"/><path class="hidden dash" d="M70 190 L290 130"/><path class="green" d="M70 190 L290 130" stroke-width="3" fill="none"/><path class="key" d="M220 70 L155 166"/><path class="red" d="M70 70 L140 130" stroke-width="3" fill="none"/><circle class="red" cx="155" cy="166" r="4"/><text x="55" y="210">A</text><text x="224" y="207">B</text><text x="294" y="132">C</text><text x="139" y="146">D</text><text x="51" y="67">A₁</text><text x="224" y="67">B₁</text><text x="147" y="166">M</text></svg></figure>
+          <details><summary>规范作答</summary><div class="exam-answer"><p><span class="label">解析：</span>设 $M(2t,2t,0)$、$0\le t\le1$，由 $B_1M\perp A_1D$ 列数量积方程；解出 $t$ 后判断是否在 $[0,1]$ 内，不在要答“不存在”。</p>
+<p><span class="label">解：</span>取 $A(0,0,0)$，$B(2,0,0)$，$D(0,2,0)$，$A_1(0,0,2)$，则 $C(2,2,0)$，$B_1(2,0,2)$。</p><p>由 $M=A+t(C-A)$，得 $M(2t,2t,0)$，且 $0\le t\le1$。</p><p>所以 $\overrightarrow{B_1M}=(2t-2,2t,-2)$，$\overrightarrow{A_1D}=(0,2,-2)$。</p><p>若 $B_1M\perp A_1D$，则</p><div class="formula">$\overrightarrow{B_1M}\cdot\overrightarrow{A_1D}=4t+4=0$。</div><p>解得 $t=-1$。因为 $-1\notin[0,1]$，所以不存在满足条件的点 $M$。</p></div></details></div>
+        </details>
+      </section>
+
+      <section id="gaokao" class="card">
+        <div class="sec-head"><h2>七、高考真题</h2><button class="print-btn" type="button" data-print="section" data-target="#gaokao">打印</button></div>
+        <details class="practice-fold">
+          <summary>展开 3 题</summary>
+
+        <article class="gaokao-item" id="gk1">
+          <div class="gaokao-head"><div class="gaokao-title">1. 空间角与点面距离</div></div>
+          <div class="gaokao-meta"><span>2022·新高考Ⅰ卷·第9题（多选）</span><span class="flag">同考点转写</span></div>
+          <p class="gaokao-q">正方体 $ABCD-A_1B_1C_1D_1$ 棱长为 $1$。判断：①$BC_1\perp DA_1$；②$BC_1$ 与平面 $BB_1D_1D$ 所成角的正弦值为 $\frac12$；③点 $C$ 到平面 $AB_1D_1$ 的距离为 $\frac{2\sqrt3}{3}$。</p>
+                    <figure class="diagram"><svg viewBox="0 0 380 250" width="380" height="250" role="img" aria-label="正方体高考题示意图"><path class="edge" d="M70 190 L220 190 L300 125 L150 125 Z M70 190 L70 70 L220 70 L220 190 M220 70 L300 5 L300 125 M70 70 L150 5 L300 5 M150 5 L150 125"/><path class="key" d="M220 190 L300 5"/><path class="red" d="M150 125 L70 70" stroke-width="3" fill="none"/><path class="green" d="M70 190 L220 70 L150 5 Z" stroke-width="2" fill="rgba(16,185,129,.15)"/><text x="55" y="210">A</text><text x="224" y="207">B</text><text x="304" y="128">C</text><text x="143" y="143">D</text><text x="52" y="67">A₁</text><text x="224" y="67">B₁</text><text x="304" y="12">C₁</text><text x="153" y="20">D₁</text></svg></figure>
+          <details open><summary>精讲</summary><div class="exam-answer"><p><span class="label">解析：</span>建系后逐项判断：垂直看点积为 $0$，线面角用 $\sin\theta$，点面距离直接套公式。</p>
+<p><span class="label">解：</span>取 $A(0,0,0)$，$B(1,0,0)$，$D(0,1,0)$，$A_1(0,0,1)$。</p><p>因为 $\overrightarrow{BC_1}=(0,1,1)$，$\overrightarrow{DA_1}=(0,-1,1)$，且 $\overrightarrow{BC_1}\cdot\overrightarrow{DA_1}=0$，所以①正确。</p><p>平面 $BB_1D_1D$ 的法向量可取 $\mathbf n=(1,1,0)$，故</p><div class="formula">$\sin\theta=\dfrac{|(0,1,1)\cdot(1,1,0)|}{\sqrt2\sqrt2}=\dfrac12$，</div><p>所以②正确。</p><p>平面 $AB_1D_1$ 的法向量可取 $(-1,-1,1)$，方程为 $-x-y+z=0$。点 $C(1,1,0)$ 到该平面的距离</p><div class="formula">$d=\dfrac{|-1-1+0|}{\sqrt3}=\dfrac{2\sqrt3}{3}$，</div><p>所以③正确。</p><div class="variant"><strong>变式：</strong>若棱长为 $2$，点 $C$ 到平面 $AB_1D_1$ 的距离为 $\frac{4\sqrt3}{3}$。</div></div></details>
+
+        </article>
+
+        <article class="gaokao-item" id="gk2">
+          <div class="gaokao-head"><div class="gaokao-title">2. 证明 + 二面角</div></div>
+          <div class="gaokao-meta"><span>近年新高考卷·第17—19题</span><span class="flag">同考点改编</span></div>
+          <p class="gaokao-q">四棱锥 $P-ABCD$ 中，底面为正方形，$PA\perp$ 底面，$AB=PA=2$，$M$ 为 $PC$ 中点。证明 $BM\perp PD$，并求平面 $PBM$ 与平面 $PDM$ 的锐夹角余弦值。</p>
+                    <figure class="diagram"><svg viewBox="0 0 360 240" width="360" height="240" role="img" aria-label="四棱锥中点示意图"><polygon class="plane" points="75,190 230,190 295,125 140,125"/><path class="edge" d="M75 190 L230 190 L295 125 L140 125 Z M75 190 L115 38 L230 190 M115 38 L295 125 M115 38 L140 125"/><path class="hidden dash" d="M75 190 L295 125"/><path class="key" d="M230 190 L205 82"/><path class="red" d="M115 38 L140 125" stroke-width="3" fill="none"/><circle class="red" cx="205" cy="82" r="4"/><text x="60" y="210">A</text><text x="232" y="207">B</text><text x="300" y="127">C</text><text x="140" y="143">D</text><text x="120" y="34">P</text><text x="211" y="83">M</text></svg></figure>
+          <details><summary>精讲</summary><div class="exam-answer"><p><span class="label">解析：</span>由 $M$ 为 $PC$ 中点先写坐标；证垂直看 $\overrightarrow{BM}\cdot\overrightarrow{PD}=0$；求二面角分别取两平面法向量。</p>
+<p><span class="label">证明：</span>取 $A(0,0,0)$，$B(2,0,0)$，$D(0,2,0)$，$P(0,0,2)$，则 $C(2,2,0)$，$M(1,1,1)$。</p><p>因为 $\overrightarrow{BM}=(-1,1,1)$，$\overrightarrow{PD}=(0,2,-2)$，且 $\overrightarrow{BM}\cdot\overrightarrow{PD}=0$，所以 $BM\perp PD$。</p><p><span class="label">解：</span>平面 $PBM$ 的法向量可取 $\mathbf n_1=(1,0,1)$；平面 $PDM$ 的法向量可取 $\mathbf n_2=(0,1,1)$。</p><p>所以两平面的锐夹角余弦值为</p><div class="formula">$\cos\theta=\dfrac{|\mathbf n_1\cdot \mathbf n_2|}{|\mathbf n_1||\mathbf n_2|}=\dfrac12$。</div><div class="variant"><strong>变式：</strong>若 $PA=4$，重算 $M(1,1,2)$，判断 $\overrightarrow{BM}\cdot\overrightarrow{PD}$ 是否为 $0$。</div></div></details>
+
+        </article>
+
+        <article class="gaokao-item" id="gk3">
+          <div class="gaokao-head"><div class="gaokao-title">3. 动点参数与线面角</div></div>
+          <div class="gaokao-meta"><span>近年新高考卷·解答题第2问</span><span class="flag">同考点改编</span></div>
+          <p class="gaokao-q">正方体棱长为 $2$，点 $P$ 在线段 $A_1C_1$ 上，$P=A_1+t(C_1-A_1)$。若直线 $BP$ 与平面 $ADD_1A_1$ 所成角为 $30^\circ$，求 $t$。</p>
+                    <details><summary>精讲</summary><div class="exam-answer"><p><span class="label">解析：</span>用参数式写 $P(2t,2t,2)$ 并注明 $0\le t\le1$；由线面角公式列方程解 $t$，最后检验范围。</p>
+<p><span class="label">解：</span>取 $A(0,0,0)$，$B(2,0,0)$，$D(0,2,0)$，$A_1(0,0,2)$，则 $C_1(2,2,2)$。</p><p>由题意得 $P(2t,2t,2)$，$0\le t\le1$。平面 $ADD_1A_1$ 的法向量为 $\mathbf n=(1,0,0)$，$\overrightarrow{BP}=(2t-2,2t,2)$。</p><p>因为线面角为 $30^\circ$，所以</p><div class="formula">$\dfrac{|\overrightarrow{BP}\cdot \mathbf n|}{|\overrightarrow{BP}||\mathbf n|}=\dfrac{|2t-2|}{\sqrt{(2t-2)^2+(2t)^2+4}}=\dfrac12$。</div><p>化简得 $t^2-3t+1=0$。结合 $0\le t\le1$，故 $t=\dfrac{3-\sqrt5}{2}$。</p><div class="variant"><strong>变式：</strong>角改为 $45^\circ$，则 $t=0$。</div></div></details>
+
+        </article>
+        </details>
+      </section>
+
+            <section id="weakness" class="card">
+        <h2>八、薄弱环节</h2>
+        <p class="muted">暂无 · 学习中遇到的卡点、易错点随交流在此追加。</p>
+        <!-- 维护规则：交流中发现学生疑点或薄弱点后，直接向 #weaklist 追加 <li>，例如：
+             <li><b>法向量列方程：</b>不会设元、代回验算 → 补 10 题，每题算完验 n·a=0、n·b=0。</li>
+             只保留“对该生真正薄弱”的点，不堆通用提醒。 -->
+        <ul id="weaklist" class="tight-list"></ul>
+      </section>
+</div>
+<div class="pv-backdrop" id="pv" hidden>
+  <div class="pv-panel">
+    <div class="pv-bar">
+      <div class="pv-title" id="pvTitle"></div>
+      <div class="pv-actions">
+        <button class="pv-btn ghost" type="button" id="pvClose">关闭预览</button>
+        <button class="pv-btn" type="button" id="pvPrint">打印</button>
+      </div>
+    </div>
+    <div class="pv-select" id="pvSelect" hidden></div>
+    <div class="pv-body" id="pvBody"></div>
+  </div>
+</div>
+<script>
+(function () {
+  'use strict';
+  var doc = document;
+  var pv = doc.getElementById('pv');
+  var pvTitle = doc.getElementById('pvTitle');
+  var pvBody = doc.getElementById('pvBody');
+  var pvSelect = doc.getElementById('pvSelect');
+  var pvPrint = doc.getElementById('pvPrint');
+  var pvClose = doc.getElementById('pvClose');
+
+  function cleanLabel(el) {
+    return el.textContent.replace(/\s+/g, ' ').trim();
+  }
+  function itemLabel(item, index) {
+    var title = item.querySelector('.gaokao-title');
+    if (title) return cleanLabel(title);
+    var question = item.querySelector('p');
+    var text = question ? cleanLabel(question) : cleanLabel(item);
+    return '第 ' + (index + 1) + ' 题 · ' + (text.length > 42 ? text.slice(0, 42) + '…' : text);
+  }
+  function cleanForPreview(node) {
+    var c = node.cloneNode(true);
+    Array.prototype.forEach.call(c.querySelectorAll(
+      '.print-btn, .sec-head, .ex-head, .pill, .pills, details, .variant, .flag'
+    ), function (el) { if (el.parentNode) el.parentNode.removeChild(el); });
+    var space = doc.createElement('div');
+    space.className = 'answer-space' + (node.querySelector('.diagram') || node.classList.contains('gaokao-item') ? ' large' : '');
+    space.innerHTML = '<span>作答：</span>';
+    c.appendChild(space);
+    return c;
+  }
+  function openPreview(title, bodyHtml) {
+    pvTitle.textContent = title;
+    pvBody.innerHTML = bodyHtml;
+    pvSelect.setAttribute('hidden', '');
+    pvBody.removeAttribute('hidden');
+    pvPrint.hidden = false;
+    pv.removeAttribute('hidden');
+    doc.body.classList.add('pv-open');
+  }
+  function openSelector(title, items) {
+    pvTitle.textContent = title;
+    pvBody.setAttribute('hidden', '');
+    pvSelect.innerHTML = '<p>勾选要打印的题目；打印稿只保留题干、图和作答区。</p><div class="pv-select-list"></div><div class="pv-select-actions"><button class="pv-btn ghost" type="button" data-select-all>全选</button><button class="pv-btn" type="button" data-preview>预览所选题目</button></div>';
+    var list = pvSelect.querySelector('.pv-select-list');
+    Array.prototype.forEach.call(items, function (item, index) {
+      var option = doc.createElement('label');
+      option.className = 'pv-select-option';
+      var input = doc.createElement('input');
+      input.type = 'checkbox';
+      input.checked = true;
+      input.value = index;
+      option.appendChild(input);
+      option.appendChild(doc.createTextNode(itemLabel(item, index)));
+      list.appendChild(option);
+    });
+    pvSelect.removeAttribute('hidden');
+    pvPrint.hidden = true;
+    pv.removeAttribute('hidden');
+    doc.body.classList.add('pv-open');
+    pvSelect._items = items;
+  }
+  function closePreview() {
+    pv.setAttribute('hidden', '');
+    pvBody.innerHTML = '';
+    pvSelect.innerHTML = '';
+    pvSelect.setAttribute('hidden', '');
+    pvPrint.hidden = false;
+    doc.body.classList.remove('pv-open');
+  }
+  pvClose.addEventListener('click', closePreview);
+  pvPrint.addEventListener('click', function () { window.print(); });
+  pv.addEventListener('click', function (e) { if (e.target === pv) closePreview(); });
+  pvSelect.addEventListener('click', function (e) {
+    var items = pvSelect._items || [];
+    if (e.target.hasAttribute('data-select-all')) {
+      Array.prototype.forEach.call(pvSelect.querySelectorAll('input[type="checkbox"]'), function (input) { input.checked = true; });
+    }
+    if (e.target.hasAttribute('data-preview')) {
+      var chosen = pvSelect.querySelectorAll('input[type="checkbox"]:checked');
+      if (!chosen.length) return;
+      var parts = [];
+      Array.prototype.forEach.call(chosen, function (input) { parts.push(cleanForPreview(items[Number(input.value)]).outerHTML); });
+      openPreview(pvTitle.textContent.replace('选择题目 · ', '') + ' · ' + chosen.length + ' 题', parts.join(''));
+      pvBody.scrollTop = 0;
+    }
+  });
+
+  Array.prototype.forEach.call(doc.querySelectorAll('.print-btn'), function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var sel = btn.getAttribute('data-target');
+      var show = doc.querySelector(sel);
+      if (!show) return;
+      var h2 = show.querySelector('h2');
+      var items = show.querySelectorAll('.exercise, .gaokao-item');
+      openSelector('选择题目 · ' + (h2 ? cleanLabel(h2) : '练习'), items);
+    });
+  });
+})();
+</script>
+</body>
+</html>
