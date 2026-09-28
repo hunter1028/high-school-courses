@@ -188,6 +188,20 @@ summary{cursor:pointer;color:var(--primary);font-weight:700;font-size:14px;user-
 .diagram .construction{stroke:#94a3b8;stroke-width:1.7;fill:none}
 .diagram .circle-outline{stroke:#93c5fd;stroke-width:1.8;fill:none}
 .diagram .green-stroke{stroke:#34a37b}
+.diagram .solid-face{stroke:none}
+.diagram .solid-face-left{fill:#e8f1ff;opacity:.72}
+.diagram .solid-face-right{fill:#dcebe7;opacity:.68}
+.diagram .solid-face-base{fill:#cfe0f6;opacity:.58}
+.diagram .solid-vertex{fill:#1e3a8a;stroke:#fff;stroke-width:1.5}
+.diagram .solid-label{font-weight:700;paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}
+.diagram .sphere-outline{fill:#edf5ff;fill-opacity:.28;stroke:#78a9e6;stroke-width:2}
+.diagram .sphere-back{stroke:#8bb6e9;stroke-width:1.4;fill:none;opacity:.65}
+.diagram .sphere-front{stroke:#5c97dc;stroke-width:1.8;fill:none}
+.diagram .sphere-meridian{stroke:#a8c8ed;stroke-width:1.2;fill:none}
+.diagram .radius-line{stroke:#2563eb;stroke-width:1.45;stroke-dasharray:4 3;fill:none;opacity:.8}
+.diagram .inner-sphere{fill:#d9f6ec;fill-opacity:.72;stroke:#23936f;stroke-width:2}
+.diagram .inner-sphere-equator{fill:none;stroke:#55ad91;stroke-width:1.2;stroke-dasharray:4 3}
+.diagram .altitude-line{stroke:#dc2626;stroke-width:1.8;stroke-dasharray:5 4;fill:none;opacity:.82}
 
 .muted{color:var(--muted)}
 

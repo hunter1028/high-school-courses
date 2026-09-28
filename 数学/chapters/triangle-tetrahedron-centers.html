@@ -168,7 +168,7 @@
           <div><dt>垂心反射</dt><dd>垂心关于任一边的对称点在外接圆上。它把“高线 + 对称”问题转化为圆周角问题。</dd></div>
           <div><dt>圆心角</dt><dd>弧 $BC$（不含 $A$）所对圆心角等于同弧圆周角的两倍：$\angle BOC=2\angle BAC$；钝角情形要取对应的优弧圆心角。</dd></div>
           <div><dt>欧拉不等式</dt><dd>$OI^2=R(R-2r)\ge0$，故 $R\ge2r$；等号成立当且仅当三角形为正三角形。</dd></div>
-          <div><dt>重心极值</dt><dd>任意点 $P$ 满足 $PA^2+PB^2+PC^2=3PG^2+\frac13(a^2+b^2+c^2)$，所以重心使三项平方和最小。</dd></div>
+          <div><dt>重心极值</dt><dd>任意点 $P$ 满足<div class="formula compact">$PA^2+PB^2+PC^2=3PG^2+\frac13(a^2+b^2+c^2)$</div>所以重心使三项平方和最小。</dd></div>
         </div>
       </div>
 
@@ -246,13 +246,18 @@
             <p><b>推论：</b>重心把四面体分成四个等体积的小四面体。</p>
           </div>
           <figure class="diagram">
-            <svg viewBox="0 0 360 235" width="360" height="235" role="img" aria-label="四面体顶点到对面重心的中线和四面体重心">
-              <path class="edge" d="M180 25 L38 205 L318 205 Z M180 25 L165 145 M38 205 L165 145 M318 205 L165 145"/>
-              <path class="hidden dash" d="M38 205 L318 205 M180 25 L173.67 185"/>
-              <circle class="auxiliary-point" cx="173.67" cy="185" r="4"/><circle class="point" cx="175.25" cy="145" r="5"/>
-              <text x="175" y="18">A</text><text x="22" y="221">B</text><text x="322" y="221">C</text><text x="151" y="141">D</text><text x="181" y="183">Gₐ</text><text x="184" y="143">G</text>
+            <svg viewBox="0 0 360 245" width="360" height="245" role="img" aria-label="有前后遮挡关系的四面体及其重心和一条空间中线">
+              <polygon class="solid-face solid-face-left" points="180,25 45,145 235,215"/>
+              <polygon class="solid-face solid-face-right" points="180,25 235,215 275,145"/>
+              <polygon class="solid-face solid-face-base" points="45,145 275,145 235,215"/>
+              <path class="edge" d="M180 25 L45 145 L235 215 L275 145 Z M180 25 L235 215"/>
+              <path class="hidden dash" d="M45 145 L275 145"/>
+              <path class="key" d="M180 25 L185 168.33"/>
+              <circle class="solid-vertex" cx="180" cy="25" r="4"/><circle class="solid-vertex" cx="45" cy="145" r="4"/><circle class="solid-vertex" cx="275" cy="145" r="4"/><circle class="solid-vertex" cx="235" cy="215" r="4"/>
+              <circle class="auxiliary-point" cx="185" cy="168.33" r="4"/><circle class="point" cx="183.75" cy="132.5" r="5"/>
+              <text class="solid-label" x="172" y="17">A</text><text class="solid-label" x="28" y="146">B</text><text class="solid-label" x="283" y="145">C</text><text class="solid-label" x="240" y="232">D</text><text class="solid-label" x="193" y="177">Gₐ</text><text class="solid-label" x="193" y="129">G</text>
             </svg>
-            <figcaption>从 $A$ 到面 $BCD$ 的重心 $G_A$；空间重心在这条线段上按 $3:1$ 分点。</figcaption>
+            <figcaption>浅蓝面是 $BCD$，虚线是被遮挡的棱 $BC$；$G_A$ 在该面内，$A,G,G_A$ 共线。</figcaption>
           </figure>
         </article>
       </div>
@@ -267,14 +272,20 @@
             <p>坐标法中连续使用 $OA^2=OB^2=OC^2=OD^2$；平方相减后得到三个一次方程。</p>
           </div>
           <figure class="diagram">
-            <svg viewBox="0 0 350 225" width="350" height="225" role="img" aria-label="四面体外接球心到四个顶点等距示意图">
-              <ellipse class="circle-outline" cx="175" cy="122" rx="133" ry="92"/>
-              <path class="edge" d="M175 25 L45 180 L310 180 Z M175 25 L170 135 M45 180 L170 135 M310 180 L170 135"/>
-              <path class="key" d="M175 118 L175 25 M175 118 L45 180 M175 118 L310 180 M175 118 L170 135"/>
-              <circle class="point" cx="175" cy="118" r="4"/>
-              <text x="184" y="116">O</text><text x="181" y="67">R</text>
+            <svg viewBox="0 0 360 255" width="360" height="255" role="img" aria-label="球内四面体和连接球心与四个顶点的半径">
+              <circle class="sphere-outline" cx="180" cy="128" r="110"/>
+              <path class="sphere-back dash" d="M70 128 C100 84 260 84 290 128"/>
+              <path class="sphere-front" d="M70 128 C100 172 260 172 290 128"/>
+              <path class="sphere-meridian" d="M180 18 C120 54 120 202 180 238 C240 202 240 54 180 18"/>
+              <polygon class="solid-face solid-face-left" points="180,28 75,145 225,205"/>
+              <polygon class="solid-face solid-face-right" points="180,28 225,205 278,105"/>
+              <path class="radius-line" d="M180 128 L180 28 M180 128 L75 145 M180 128 L225 205 M180 128 L278 105"/>
+              <path class="edge" d="M180 28 L75 145 L225 205 L278 105 Z M180 28 L225 205"/>
+              <path class="hidden dash" d="M75 145 L278 105"/>
+              <circle class="solid-vertex" cx="180" cy="28" r="4"/><circle class="solid-vertex" cx="75" cy="145" r="4"/><circle class="solid-vertex" cx="225" cy="205" r="4"/><circle class="solid-vertex" cx="278" cy="105" r="4"/><circle class="point" cx="180" cy="128" r="5"/>
+              <text class="solid-label" x="169" y="20">A</text><text class="solid-label" x="58" y="151">B</text><text class="solid-label" x="229" y="222">C</text><text class="solid-label" x="286" y="105">D</text><text class="solid-label" x="188" y="124">O</text><text class="solid-label" x="184" y="76">R</text>
             </svg>
-            <figcaption>图中四条半径都记作 $R$；真正的判定条件是四个距离相等。</figcaption>
+            <figcaption>球面用外轮廓、前后半赤道和经线表现；四个顶点都在球面上，$O$ 到四点的空间距离均为 $R$。</figcaption>
           </figure>
         </article>
 
@@ -286,28 +297,47 @@
             <div class="formula">$\displaystyle V=\frac13r(S_A+S_B+S_C+S_D)$。</div>
           </div>
           <figure class="diagram">
-            <svg viewBox="0 0 350 225" width="350" height="225" role="img" aria-label="四面体内切球心到各面的距离相等示意图">
-              <path class="edge" d="M175 25 L40 195 L315 195 Z M175 25 L165 135 M40 195 L165 135 M315 195 L165 135"/>
-              <ellipse class="circle-outline green-stroke" cx="174" cy="137" rx="53" ry="42"/>
-              <path class="red" d="M174 137 L174 195" stroke-width="2.5" fill="none"/>
-              <path class="right-angle" d="M174 181 H188 V195"/>
-              <circle class="point" cx="174" cy="137" r="4"/>
-              <text x="183" y="134">I</text><text x="182" y="169">r</text>
+            <svg viewBox="0 0 360 245" width="360" height="245" role="img" aria-label="正四面体内部的内切球及球心到一个面的垂线">
+              <polygon class="solid-face solid-face-left" points="180,25 45,145 235,215"/>
+              <polygon class="solid-face solid-face-right" points="180,25 235,215 275,145"/>
+              <polygon class="solid-face solid-face-base" points="45,145 275,145 235,215"/>
+              <circle class="inner-sphere" cx="183.75" cy="132.5" r="43"/>
+              <ellipse class="inner-sphere-equator" cx="183.75" cy="132.5" rx="43" ry="13"/>
+              <path class="edge" d="M180 25 L45 145 L235 215 L275 145 Z M180 25 L235 215"/>
+              <path class="hidden dash" d="M45 145 L275 145"/>
+              <path class="red" d="M183.75 132.5 L185 168.33" stroke-width="2.5" fill="none"/>
+              <circle class="solid-vertex" cx="180" cy="25" r="4"/><circle class="solid-vertex" cx="45" cy="145" r="4"/><circle class="solid-vertex" cx="275" cy="145" r="4"/><circle class="solid-vertex" cx="235" cy="215" r="4"/>
+              <circle class="point" cx="183.75" cy="132.5" r="5"/><circle class="red" cx="185" cy="168.33" r="4"/>
+              <text class="solid-label" x="171" y="17">A</text><text class="solid-label" x="28" y="146">B</text><text class="solid-label" x="283" y="145">C</text><text class="solid-label" x="240" y="232">D</text><text class="solid-label" x="192" y="129">I</text><text class="solid-label" x="193" y="170">Hₐ</text><text class="solid-label" x="189" y="153">r</text>
             </svg>
-            <figcaption>用“总体积等于四个以 $I$ 为顶点的小四面体体积之和”得到 $V=\frac13rS_{\text{表}}$。</figcaption>
+            <figcaption>以正四面体清晰展示内切关系：$H_A$ 是球与面 $BCD$ 的切点，$IH_A\perp$ 面 $BCD$；一般四面体同样按四个面拆分体积。</figcaption>
           </figure>
         </article>
       </div>
 
       <h3>3. 空间“垂心”不能机械照搬</h3>
       <div class="subsection">
-        <div class="worked-example">
-          <h4>关键区别</h4>
-          <p>三角形的三条高恒共点；一般四面体中，从每个顶点向对面作垂线，这四条高<b>不一定共点</b>。</p>
-          <p>四条高共点的四面体称为<b>垂心四面体</b>。它的充要条件是三组对棱分别垂直：</p>
-          <div class="formula">$AB\perp CD,\quad AC\perp BD,\quad AD\perp BC$。</div>
-          <p>实际判定时只需验证其中两组，第三组随之成立。正四面体是垂心四面体，且重心、外接球心、内切球心与垂心重合。</p>
-        </div>
+        <article class="concept-row">
+          <div class="concept-copy">
+            <p>三角形的三条高恒共点；一般四面体中，从每个顶点向对面作垂线，这四条高<b>不一定共点</b>。</p>
+            <p>四条高共点的四面体称为<b>垂心四面体</b>。它的充要条件是三组对棱分别垂直：</p>
+            <div class="formula">$AB\perp CD,\quad AC\perp BD,\quad AD\perp BC$。</div>
+            <p>实际判定时只需验证其中两组，第三组随之成立。正四面体是垂心四面体，且 $G=O=I=H$。</p>
+          </div>
+          <figure class="diagram">
+            <svg viewBox="0 0 360 245" width="360" height="245" role="img" aria-label="正四面体的四条高线交于同一点">
+              <polygon class="solid-face solid-face-left" points="180,25 45,145 235,215"/>
+              <polygon class="solid-face solid-face-right" points="180,25 235,215 275,145"/>
+              <polygon class="solid-face solid-face-base" points="45,145 275,145 235,215"/>
+              <path class="edge" d="M180 25 L45 145 L235 215 L275 145 Z M180 25 L235 215"/>
+              <path class="hidden dash" d="M45 145 L275 145"/>
+              <path class="altitude-line" d="M180 25 L185 168.33 M45 145 L230 128.33 M275 145 L153.33 128.33 M235 215 L166.67 105"/>
+              <circle class="solid-vertex" cx="180" cy="25" r="4"/><circle class="solid-vertex" cx="45" cy="145" r="4"/><circle class="solid-vertex" cx="275" cy="145" r="4"/><circle class="solid-vertex" cx="235" cy="215" r="4"/><circle class="red" cx="183.75" cy="132.5" r="5"/>
+              <text class="solid-label" x="171" y="17">A</text><text class="solid-label" x="28" y="146">B</text><text class="solid-label" x="283" y="145">C</text><text class="solid-label" x="240" y="232">D</text><text class="solid-label" x="192" y="128">H</text>
+            </svg>
+            <figcaption>图示正四面体：四条高与四条中线重合并交于 $H$。一般四面体没有这项保证。</figcaption>
+          </figure>
+        </article>
       </div>
 
       <h3>4. 常见立体的一眼结论</h3>
