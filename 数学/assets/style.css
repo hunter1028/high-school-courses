@@ -185,6 +185,9 @@ summary{cursor:pointer;color:var(--primary);font-weight:700;font-size:14px;user-
 .diagram .auxiliary-point{fill:#64748b}
 .diagram .red{stroke:#dc2626;fill:#dc2626}
 .diagram .green{stroke:#059669;fill:#059669}
+.diagram .construction{stroke:#94a3b8;stroke-width:1.7;fill:none}
+.diagram .circle-outline{stroke:#93c5fd;stroke-width:1.8;fill:none}
+.diagram .green-stroke{stroke:#34a37b}
 
 .muted{color:var(--muted)}
 

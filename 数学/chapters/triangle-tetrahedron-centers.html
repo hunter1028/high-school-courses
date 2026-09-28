@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>数学专题：三角形与四面体的特殊点</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script>
+    window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }, svg: { fontCache: 'global' } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body class="chapter-page">
+  <div class="chapter-doc">
+    <section class="chap-head">
+      <p class="chap-meta">“心”不是名称表，而是若干条特殊线或等距轨迹的交点。抓住“中点、垂直、等距、角平分、面积权重”五类条件，就能把平面中的特殊点与空间中的球心、重心和垂心问题统一起来。</p>
+    </section>
+
+    <section id="overview" class="card">
+      <h2>一、专题导图</h2>
+      <div class="subsection">
+        <div class="learning-route">
+          <div class="route-row"><b>平均</b><p>中线交于重心</p><span>顶点坐标直接取平均</span></div>
+          <div class="route-row"><b>等点距</b><p>中垂线交于外心</p><span>到各顶点距离相等</span></div>
+          <div class="route-row"><b>垂直</b><p>高线交于垂心</p><span>方向向量数量积为 $0$</span></div>
+          <div class="route-row"><b>等边距</b><p>内角平分线交于内心</p><span>到三边距离相等</span></div>
+        </div>
+        <p>旁心、九点圆心和费马点是主线之外的常见扩展。进入立体几何后，“三点定圆”变成“四个不共面点定球”；但三角形的三条高恒交于一点，不能直接推广为任意四面体的四条高也恒共点。</p>
+      </div>
+    </section>
+
+    <section id="triangle-centers" class="card">
+      <h2>二、三角形的特殊点</h2>
+
+      <h3 id="centroid">1. 重心 $G$</h3>
+      <div class="subsection">
+        <article class="concept-row">
+          <div class="concept-copy">
+            <p><b>定义：</b>三条中线的交点。一条中线连接顶点与其对边中点。</p>
+            <div class="formula">$M$ 为 $BC$ 中点：$A,G,M$ 共线，且 $AG:GM=2:1$。</div>
+            <div class="formula">任取原点 $O$：$\displaystyle \overrightarrow{OG}=\frac{\overrightarrow{OA}+\overrightarrow{OB}+\overrightarrow{OC}}3$。</div>
+            <p><b>特点：</b>重心恒在三角形内部；三条中线把三角形分成六个等面积小三角形。</p>
+          </div>
+          <figure class="diagram">
+            <svg viewBox="0 0 360 225" width="360" height="225" role="img" aria-label="三角形三条中线交于重心示意图">
+              <path class="edge" d="M40 195 L320 195 L135 35 Z"/>
+              <path class="construction" d="M40 195 L227.5 115 M320 195 L87.5 115 M135 35 L180 195"/>
+              <circle class="point" cx="165" cy="141.7" r="4"/><circle class="auxiliary-point" cx="227.5" cy="115" r="3"/><circle class="auxiliary-point" cx="87.5" cy="115" r="3"/><circle class="auxiliary-point" cx="180" cy="195" r="3"/>
+              <text x="25" y="211">A</text><text x="325" y="211">B</text><text x="130" y="27">C</text><text x="173" y="139">G</text><text x="186" y="215">M</text>
+            </svg>
+            <figcaption>$G$ 在每条中线上都靠近顶点一侧，顶点到重心占整条中线的 $\frac23$。</figcaption>
+          </figure>
+        </article>
+      </div>
+
+      <h3 id="circumcenter">2. 外心 $O$</h3>
+      <div class="subsection">
+        <article class="concept-row">
+          <div class="concept-copy">
+            <p><b>定义：</b>三边垂直平分线的交点，也是三角形外接圆的圆心。</p>
+            <div class="formula">$OA=OB=OC=R\Longleftrightarrow O$ 在三边中垂线的交点。</div>
+            <p><b>位置：</b>锐角三角形在内部，直角三角形在斜边中点，钝角三角形在外部。</p>
+            <p><b>识别：</b>题目出现“到三个顶点等距”，所求点就是外心。</p>
+          </div>
+          <figure class="diagram">
+            <svg viewBox="0 0 360 225" width="360" height="225" role="img" aria-label="三角形外心与外接圆示意图">
+              <circle class="circle-outline" cx="180" cy="158.83" r="128.83"/>
+              <path class="edge" d="M55 190 L305 190 L180 30 Z"/>
+              <path class="construction dash" d="M180 12 V210 M35 88 L325 88"/>
+              <path class="key" d="M180 158.83 L55 190 M180 158.83 L305 190 M180 158.83 L180 30"/>
+              <circle class="point" cx="180" cy="158.83" r="4"/>
+              <text x="42" y="208">A</text><text x="310" y="208">B</text><text x="176" y="23">C</text><text x="188" y="155">O</text><text x="112" y="164">R</text>
+            </svg>
+            <figcaption>中垂线上的点到线段两端等距；两条中垂线已能确定唯一外心。</figcaption>
+          </figure>
+        </article>
+      </div>
+
+      <h3 id="orthocenter">3. 垂心 $H$</h3>
+      <div class="subsection">
+        <article class="concept-row">
+          <div class="concept-copy">
+            <p><b>定义：</b>三条高所在直线的交点。三角形的高是过顶点且垂直于对边所在直线的直线。</p>
+            <div class="formula">$AH\perp BC,\quad BH\perp CA,\quad CH\perp AB$。</div>
+            <p><b>位置：</b>锐角三角形在内部，直角三角形在直角顶点，钝角三角形在外部。</p>
+            <p><b>向量判定：</b>例如 $H$ 在 $A$ 点高线上，当且仅当 $\overrightarrow{AH}\cdot\overrightarrow{BC}=0$。</p>
+          </div>
+          <figure class="diagram">
+            <svg viewBox="0 0 360 225" width="360" height="225" role="img" aria-label="三角形三条高交于垂心示意图">
+              <path class="edge" d="M55 190 L305 190 L180 30 Z"/>
+              <path class="construction" d="M180 30 V190 M55 190 L210.25 68.71 M305 190 L149.75 68.71"/>
+              <path class="right-angle" d="M180 176 H194 V190"/>
+              <circle class="point" cx="180" cy="92.34" r="4"/>
+              <text x="42" y="208">A</text><text x="310" y="208">B</text><text x="176" y="23">C</text><text x="189" y="91">H</text>
+            </svg>
+            <figcaption>高线体现“顶点到对边方向垂直”，因此最适合用数量积为 $0$ 求解。</figcaption>
+          </figure>
+        </article>
+      </div>
+
+      <h3 id="incenter">4. 内心 $I$</h3>
+      <div class="subsection">
+        <article class="concept-row">
+          <div class="concept-copy">
+            <p><b>定义：</b>三条内角平分线的交点，也是内切圆圆心。</p>
+            <div class="formula">$d(I,AB)=d(I,BC)=d(I,CA)=r$。</div>
+            <div class="formula">设 $a=BC,b=CA,c=AB$：$\displaystyle \overrightarrow{OI}=\frac{a\overrightarrow{OA}+b\overrightarrow{OB}+c\overrightarrow{OC}}{a+b+c}$。</div>
+            <p><b>特点：</b>内心恒在三角形内部；由面积分割立即得到 $S_{\triangle ABC}=rs$，其中 $s=\frac{a+b+c}{2}$。</p>
+          </div>
+          <figure class="diagram">
+            <svg viewBox="0 0 360 225" width="360" height="225" role="img" aria-label="三角形内心与内切圆示意图">
+              <path class="edge" d="M55 190 L305 190 L180 30 Z"/>
+              <circle class="circle-outline green-stroke" cx="180" cy="129.03" r="60.97"/>
+              <path class="construction" d="M55 190 L180 129.03 M305 190 L180 129.03 M180 30 L180 129.03"/>
+              <path class="red" d="M180 129.03 V190" stroke-width="2.5" fill="none"/>
+              <path class="right-angle" d="M180 176 H194 V190"/>
+              <circle class="point" cx="180" cy="129.03" r="4"/>
+              <text x="42" y="208">A</text><text x="310" y="208">B</text><text x="176" y="23">C</text><text x="188" y="126">I</text><text x="188" y="163">r</text>
+            </svg>
+            <figcaption>角平分线上的点到角的两边等距；内心到三边的三条垂线都是内切圆半径。</figcaption>
+          </figure>
+        </article>
+      </div>
+
+      <h3 id="other-centers">5. 旁心、九点圆心与费马点</h3>
+      <div class="subsection">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>特殊点</th><th>定义或构造</th><th>关键性质</th><th>使用边界</th></tr></thead>
+            <tbody>
+              <tr><td><b>旁心 $I_a,I_b,I_c$</b></td><td>一个内角平分线与另两个外角平分线的交点</td><td>到三边所在直线等距；分别对应三个旁切圆</td><td>在三角形外部；带符号的边距不要误当线段距离</td></tr>
+              <tr><td><b>九点圆心 $N$</b></td><td>外心 $O$ 与垂心 $H$ 的中点</td><td>九点圆半径为 $R/2$，过三边中点、三高垂足及 $AH,BH,CH$ 的中点</td><td>依赖外心与垂心，不能与内心混用</td></tr>
+              <tr><td><b>费马点 $T$</b></td><td>使 $TA+TB+TC$ 最小的点</td><td>若三个角都小于 $120^\circ$，则 $\angle ATB=\angle BTC=\angle CTA=120^\circ$</td><td>若某角不小于 $120^\circ$，最小点就是该角顶点</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="formula">$A$ 的对面旁心：$\displaystyle \overrightarrow{OI_a}=\frac{-a\overrightarrow{OA}+b\overrightarrow{OB}+c\overrightarrow{OC}}{-a+b+c}$。</div>
+      </div>
+    </section>
+
+    <section id="relations" class="card">
+      <h2>三、关系与推论</h2>
+      <h3>1. 欧拉线：外心、重心、垂心、九点圆心</h3>
+      <div class="subsection">
+        <article class="concept-row">
+          <div class="concept-copy">
+            <div class="formula">非正三角形中：$O,G,H,N$ 共线，$OG:GH=1:2$，且 $N$ 是 $OH$ 的中点。</div>
+            <p>若取外心 $O$ 为原点，顶点位置向量分别为 $\mathbf a,\mathbf b,\mathbf c$，则</p>
+            <div class="formula">$\overrightarrow{OH}=\mathbf a+\mathbf b+\mathbf c,\qquad \overrightarrow{OG}=\frac{\mathbf a+\mathbf b+\mathbf c}{3}$。</div>
+            <p>所以 $\overrightarrow{OH}=3\overrightarrow{OG}$，共线与 $1:2$ 的分点关系同时得到。</p>
+          </div>
+          <figure class="diagram">
+            <svg viewBox="0 0 360 210" width="360" height="210" role="img" aria-label="三角形欧拉线上的外心重心九点圆心和垂心">
+              <path class="edge" d="M35 180 L325 180 L110 25 Z"/>
+              <path class="construction dash" d="M70 155 L292 66"/>
+              <circle class="red" cx="99" cy="143" r="4"/><circle class="point" cx="159" cy="119" r="4"/><circle class="auxiliary-point" cx="189" cy="107" r="4"/><circle class="green" cx="279" cy="71" r="4"/>
+              <text x="84" y="139">O</text><text x="146" y="113">G</text><text x="192" y="102">N</text><text x="286" y="69">H</text>
+              <text x="116" y="153">1</text><text x="216" y="102">2</text>
+            </svg>
+            <figcaption>顺序是 $O-G-N-H$；$G$ 把 $OH$ 按 $1:2$ 分，$N$ 平分 $OH$。</figcaption>
+          </figure>
+        </article>
+      </div>
+
+      <h3>2. 高频推论</h3>
+      <div class="subsection">
+        <div class="definition-list">
+          <div><dt>垂心反射</dt><dd>垂心关于任一边的对称点在外接圆上。它把“高线 + 对称”问题转化为圆周角问题。</dd></div>
+          <div><dt>圆心角</dt><dd>弧 $BC$（不含 $A$）所对圆心角等于同弧圆周角的两倍：$\angle BOC=2\angle BAC$；钝角情形要取对应的优弧圆心角。</dd></div>
+          <div><dt>欧拉不等式</dt><dd>$OI^2=R(R-2r)\ge0$，故 $R\ge2r$；等号成立当且仅当三角形为正三角形。</dd></div>
+          <div><dt>重心极值</dt><dd>任意点 $P$ 满足 $PA^2+PB^2+PC^2=3PG^2+\frac13(a^2+b^2+c^2)$，所以重心使三项平方和最小。</dd></div>
+        </div>
+      </div>
+
+      <h3>3. 特殊三角形中的位置</h3>
+      <div class="subsection">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>三角形</th><th>中心的位置关系</th><th>立即可用的结论</th></tr></thead>
+            <tbody>
+              <tr><td>正三角形</td><td>$O=G=H=I=N$</td><td>中线、高、中垂线、角平分线是同一组三条直线</td></tr>
+              <tr><td>等腰三角形</td><td>$O,G,H,I,N$ 都在对称轴上</td><td>顶角中线同时是高、中垂线和角平分线</td></tr>
+              <tr><td>直角三角形</td><td>$H$ 为直角顶点，$O$ 为斜边中点</td><td>斜边中线等于斜边的一半；九点圆心是直角顶点与斜边中点的中点</td></tr>
+              <tr><td>钝角三角形</td><td>$G,I$ 在内部，$O,H$ 在外部</td><td>作图或坐标判断时不要强行把外心、垂心限制在三角形内</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="coordinate-example" class="card">
+      <h2>四、坐标与向量算法</h2>
+      <div class="subsection">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>所求点</th><th>最直接的方程</th><th>为什么</th></tr></thead>
+            <tbody>
+              <tr><td>重心 $G$</td><td>三个顶点坐标分别取平均</td><td>中线的 $2:1$ 分点公式</td></tr>
+              <tr><td>外心 $O(x,y)$</td><td>$OA^2=OB^2,\ OA^2=OC^2$</td><td>外心到三个顶点等距</td></tr>
+              <tr><td>垂心 $H(x,y)$</td><td>$\overrightarrow{AH}\cdot\overrightarrow{BC}=0,\ \overrightarrow{BH}\cdot\overrightarrow{CA}=0$</td><td>高线垂直于对边</td></tr>
+              <tr><td>内心 $I$</td><td>$\displaystyle I=\frac{aA+bB+cC}{a+b+c}$</td><td>面积权重；$a,b,c$ 分别与 $A,B,C$ 相对</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <article class="worked-example">
+          <h4>例：一次求出直角三角形的五个中心</h4>
+          <p>设 $A(0,0),B(4,0),C(0,3)$，则 $a=BC=5,b=CA=3,c=AB=4$。</p>
+          <div class="example-steps">
+            <p><b>重心：</b>$G\left(\frac{0+4+0}{3},\frac{0+0+3}{3}\right)=\left(\frac43,1\right)$。</p>
+            <p><b>外心：</b>直角三角形外心为斜边中点，$O\left(2,\frac32\right)$。</p>
+            <p><b>垂心：</b>$AB\perp AC$，所以 $H=A=(0,0)$。</p>
+            <p><b>内心：</b>$I=\dfrac{5A+3B+4C}{12}=(1,1)$。</p>
+            <p><b>九点圆心：</b>$N$ 是 $OH$ 中点，所以 $N\left(1,\frac34\right)$。</p>
+            <p><b>验欧拉线：</b>$\overrightarrow{OG}=\left(-\frac23,-\frac12\right)$，$\overrightarrow{OH}=(-2,-\frac32)=3\overrightarrow{OG}$。</p>
+          </div>
+        </article>
+
+        <figure class="diagram concept-diagram">
+          <svg viewBox="0 0 420 300" width="420" height="300" role="img" aria-label="三四五直角三角形各中心坐标示意图">
+            <defs><pattern id="grid-centers" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M60 0 H0 V60" fill="none" stroke="#e5e7eb" stroke-width="1"/></pattern></defs>
+            <rect x="35" y="25" width="330" height="240" fill="url(#grid-centers)"/>
+            <path class="edge" d="M65 245 L305 245 L65 65 Z"/>
+            <path class="construction dash" d="M65 245 L185 155"/>
+            <circle class="red" cx="65" cy="245" r="5"/><circle class="point" cx="185" cy="155" r="5"/><circle class="green" cx="145" cy="185" r="5"/><circle class="auxiliary-point" cx="125" cy="185" r="5"/><circle fill="#b45309" cx="125" cy="200" r="5"/>
+            <path class="right-angle" d="M65 225 H85 V245"/>
+            <text x="45" y="266">A=H</text><text x="310" y="264">B</text><text x="48" y="58">C</text>
+            <text x="194" y="151">O</text><text x="153" y="181">G</text><text x="105" y="179">I</text><text x="105" y="218">N</text>
+            <text x="182" y="238">4</text><text x="75" y="158">3</text><text x="188" y="137">5</text>
+          </svg>
+          <figcaption>直角三角形中 $H$ 落在直角顶点，$O$ 落在斜边中点；$O,G,N,H$ 共线。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="solid-centers" class="card">
+      <h2>五、立体几何中的对应</h2>
+
+      <h3>1. 四面体重心 $G$</h3>
+      <div class="subsection">
+        <article class="concept-row">
+          <div class="concept-copy">
+            <p><b>定义：</b>四面体中，连接一个顶点与其对面三角形重心的线段叫作一条中线；四条中线交于四面体重心。</p>
+            <div class="formula">$\displaystyle \overrightarrow{OG}=\frac{\overrightarrow{OA}+\overrightarrow{OB}+\overrightarrow{OC}+\overrightarrow{OD}}4$。</div>
+            <div class="formula">$G_A$ 为面 $BCD$ 的重心：$A,G,G_A$ 共线，$AG:GG_A=3:1$。</div>
+            <p><b>推论：</b>重心把四面体分成四个等体积的小四面体。</p>
+          </div>
+          <figure class="diagram">
+            <svg viewBox="0 0 360 235" width="360" height="235" role="img" aria-label="四面体顶点到对面重心的中线和四面体重心">
+              <path class="edge" d="M180 25 L38 205 L318 205 Z M180 25 L165 145 M38 205 L165 145 M318 205 L165 145"/>
+              <path class="hidden dash" d="M38 205 L318 205 M180 25 L173.67 185"/>
+              <circle class="auxiliary-point" cx="173.67" cy="185" r="4"/><circle class="point" cx="175.25" cy="145" r="5"/>
+              <text x="175" y="18">A</text><text x="22" y="221">B</text><text x="322" y="221">C</text><text x="151" y="141">D</text><text x="181" y="183">Gₐ</text><text x="184" y="143">G</text>
+            </svg>
+            <figcaption>从 $A$ 到面 $BCD$ 的重心 $G_A$；空间重心在这条线段上按 $3:1$ 分点。</figcaption>
+          </figure>
+        </article>
+      </div>
+
+      <h3>2. 外接球心与内切球心</h3>
+      <div class="subsection concept-stack">
+        <article class="concept-row">
+          <div class="concept-copy">
+            <h4>外接球心 $O$：到顶点等距</h4>
+            <p><b>定义：</b>经过四面体四个顶点的球叫外接球，其球心满足 $OA=OB=OC=OD=R$。</p>
+            <div class="formula">非共面四点 $A,B,C,D$ 唯一确定一个球；$O$ 是若干条棱的垂直平分面的交点。</div>
+            <p>坐标法中连续使用 $OA^2=OB^2=OC^2=OD^2$；平方相减后得到三个一次方程。</p>
+          </div>
+          <figure class="diagram">
+            <svg viewBox="0 0 350 225" width="350" height="225" role="img" aria-label="四面体外接球心到四个顶点等距示意图">
+              <ellipse class="circle-outline" cx="175" cy="122" rx="133" ry="92"/>
+              <path class="edge" d="M175 25 L45 180 L310 180 Z M175 25 L170 135 M45 180 L170 135 M310 180 L170 135"/>
+              <path class="key" d="M175 118 L175 25 M175 118 L45 180 M175 118 L310 180 M175 118 L170 135"/>
+              <circle class="point" cx="175" cy="118" r="4"/>
+              <text x="184" y="116">O</text><text x="181" y="67">R</text>
+            </svg>
+            <figcaption>图中四条半径都记作 $R$；真正的判定条件是四个距离相等。</figcaption>
+          </figure>
+        </article>
+
+        <article class="concept-row">
+          <div class="concept-copy">
+            <h4>内切球心 $I$：到各面等距</h4>
+            <p><b>定义：</b>与四面体四个面都相切的球叫内切球；球心 $I$ 到四个面的距离都等于半径 $r$。</p>
+            <div class="formula">设 $S_A,S_B,S_C,S_D$ 分别为顶点 $A,B,C,D$ 对面三角形的面积，则<br>$\displaystyle \overrightarrow{OI}=\frac{S_A\overrightarrow{OA}+S_B\overrightarrow{OB}+S_C\overrightarrow{OC}+S_D\overrightarrow{OD}}{S_A+S_B+S_C+S_D}$。</div>
+            <div class="formula">$\displaystyle V=\frac13r(S_A+S_B+S_C+S_D)$。</div>
+          </div>
+          <figure class="diagram">
+            <svg viewBox="0 0 350 225" width="350" height="225" role="img" aria-label="四面体内切球心到各面的距离相等示意图">
+              <path class="edge" d="M175 25 L40 195 L315 195 Z M175 25 L165 135 M40 195 L165 135 M315 195 L165 135"/>
+              <ellipse class="circle-outline green-stroke" cx="174" cy="137" rx="53" ry="42"/>
+              <path class="red" d="M174 137 L174 195" stroke-width="2.5" fill="none"/>
+              <path class="right-angle" d="M174 181 H188 V195"/>
+              <circle class="point" cx="174" cy="137" r="4"/>
+              <text x="183" y="134">I</text><text x="182" y="169">r</text>
+            </svg>
+            <figcaption>用“总体积等于四个以 $I$ 为顶点的小四面体体积之和”得到 $V=\frac13rS_{\text{表}}$。</figcaption>
+          </figure>
+        </article>
+      </div>
+
+      <h3>3. 空间“垂心”不能机械照搬</h3>
+      <div class="subsection">
+        <div class="worked-example">
+          <h4>关键区别</h4>
+          <p>三角形的三条高恒共点；一般四面体中，从每个顶点向对面作垂线，这四条高<b>不一定共点</b>。</p>
+          <p>四条高共点的四面体称为<b>垂心四面体</b>。它的充要条件是三组对棱分别垂直：</p>
+          <div class="formula">$AB\perp CD,\quad AC\perp BD,\quad AD\perp BC$。</div>
+          <p>实际判定时只需验证其中两组，第三组随之成立。正四面体是垂心四面体，且重心、外接球心、内切球心与垂心重合。</p>
+        </div>
+      </div>
+
+      <h3>4. 常见立体的一眼结论</h3>
+      <div class="subsection">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>立体</th><th>中心在哪里</th><th>成立条件与推论</th></tr></thead>
+            <tbody>
+              <tr><td>长方体</td><td>体对角线交点是外接球心</td><td>$R=\frac12\sqrt{a^2+b^2+c^2}$；只有 $a=b=c$ 时才有同时与六面相切的内切球</td></tr>
+              <tr><td>正方体</td><td>体对角线交点</td><td>重心、外接球心、内切球心重合；$R=\frac{\sqrt3}{2}a,r=\frac a2$</td></tr>
+              <tr><td>正四面体</td><td>任一顶点到对面中心的连线交点</td><td>$G=O=I=H$；所有对称轴给出同一个中心</td></tr>
+              <tr><td>正棱锥</td><td>外接球心和内切球心都在高所在直线上</td><td>取过顶点、底面中心和底边中点的轴截面，把球问题降为圆问题</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="quick-check" class="card">
+      <h2>六、辨认与自查</h2>
+      <div class="subsection error-list">
+        <p><b>到顶点等距：</b>平面找外心，空间找外接球心；使用边或棱的垂直平分线/面。</p>
+        <p><b>到边或面等距：</b>平面找内心或旁心，空间找内切球心；先判断点在内部还是外部。</p>
+        <p><b>坐标取平均：</b>得到重心，不是外心。外心必须由等距方程确定。</p>
+        <p><b>出现垂直：</b>三角形高线恒共点；四面体高线共点需要额外条件。</p>
+        <p><b>出现 $2:1$：</b>想到三角形重心；出现 $3:1$，想到四面体重心。</p>
+        <p><b>中心重合：</b>三角形中 $O=I$ 即可推出正三角形；正方体、正四面体等高度对称立体中多个中心重合。</p>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
