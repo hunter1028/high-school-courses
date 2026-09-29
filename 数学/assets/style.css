@@ -112,6 +112,12 @@ a:hover{text-decoration:underline}
 .worked-example>p{margin:4px 0 8px}
 .example-steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px 24px}
 .example-steps p{margin:0}
+.proof-block{margin:12px 0 6px;padding:11px 14px;background:#fbfcff;border-left:3px solid #cbd5e1}
+.proof-block h4{margin:0 0 6px;color:var(--primary-d);font-size:16px}
+.proof-steps{margin:0;padding-left:1.45em}
+.proof-steps li{padding:4px 0 5px;line-height:1.75}
+.proof-steps li::marker{color:#64748b;font-weight:700}
+.proof-steps .formula{margin:6px 0}
 .compact-row{padding-top:12px;padding-bottom:12px}
 .learning-route{margin:2px 0 4px}
 .route-row{display:grid;grid-template-columns:64px minmax(0,1fr) minmax(180px,.7fr);gap:12px;align-items:baseline;padding:9px 0;border-bottom:1px solid #e8edf4}

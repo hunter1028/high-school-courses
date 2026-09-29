@@ -13,7 +13,7 @@
 <body class="chapter-page">
   <div class="chapter-doc">
     <section class="chap-head">
-      <p class="chap-meta">“心”不是名称表，而是若干条特殊线或等距轨迹的交点。抓住“中点、垂直、等距、角平分、面积权重”五类条件，就能把平面中的特殊点与空间中的球心、重心和垂心问题统一起来。</p>
+      <p class="chap-meta">“心”不是名称表，而是若干条特殊线或等距轨迹的交点。抓住“中点、垂直、等距、角平分、面积权重”五类条件，就能把平面中的特殊点与空间中的球心、重心和垂心问题统一起来。一般三角形的四个心并不重合；“共点”分别指三条中线、三条中垂线、三条高、三条内角平分线各自交于一个点。</p>
     </section>
 
     <section id="overview" class="card">
@@ -31,6 +31,7 @@
 
     <section id="triangle-centers" class="card">
       <h2>二、三角形的特殊点</h2>
+      <p><b>证明目标：</b>不能只把“交点”写进定义，还要说明为什么前两条特殊线的交点必在第三条特殊线上。</p>
 
       <h3 id="centroid">1. 重心 $G$</h3>
       <div class="subsection">
@@ -51,6 +52,19 @@
             <figcaption>$G$ 在每条中线上都靠近顶点一侧，顶点到重心占整条中线的 $\frac23$。</figcaption>
           </figure>
         </article>
+        <div class="proof-block">
+          <h4>证明：三条中线为什么共点</h4>
+          <ol class="proof-steps">
+            <li><b>设元：</b>取任意参考原点 $S$，记 $\mathbf a=\overrightarrow{SA},\mathbf b=\overrightarrow{SB},\mathbf c=\overrightarrow{SC}$。设 $M,N,P$ 分别为 $BC,CA,AB$ 的中点，则 $\mathbf m=\dfrac{\mathbf b+\mathbf c}{2}$，其余两式同理。</li>
+            <li><b>构造：</b>取点 $G$，使其位置向量为 $\displaystyle \mathbf g=\frac{\mathbf a+\mathbf b+\mathbf c}{3}$。</li>
+            <li><b>验证：</b><div class="formula compact">$\displaystyle \begin{aligned}
+              \mathbf g-\mathbf a&=\frac{\mathbf b+\mathbf c-2\mathbf a}{3}\\
+              &=\frac23\left(\frac{\mathbf b+\mathbf c}{2}-\mathbf a\right)\\
+              &=\frac23(\mathbf m-\mathbf a)
+            \end{aligned}$</div>所以 $\overrightarrow{AG}=\dfrac23\overrightarrow{AM}$，即 $A,G,M$ 共线。轮换 $A,B,C$，同理有 $B,G,N$ 共线、$C,G,P$ 共线。</li>
+            <li><b>结论：</b>同一个点 $G$ 同时在三条中线上，因此三条中线共点；并且 $AG:GM=2:1$。</li>
+          </ol>
+        </div>
       </div>
 
       <h3 id="circumcenter">2. 外心 $O$</h3>
@@ -74,6 +88,15 @@
             <figcaption>中垂线上的点到线段两端等距；两条中垂线已能确定唯一外心。</figcaption>
           </figure>
         </article>
+        <div class="proof-block">
+          <h4>证明：三边中垂线为什么共点</h4>
+          <ol class="proof-steps">
+            <li><b>取交点：</b>因为 $AB$ 与 $AC$ 不平行，所以它们的中垂线也不平行，必有唯一交点，记为 $O$。</li>
+            <li><b>使用轨迹性质：</b>$O$ 在 $AB$ 的中垂线上，所以 $OA=OB$；$O$ 在 $AC$ 的中垂线上，所以 $OA=OC$。</li>
+            <li><b>推出第三条：</b>由 $OA=OB$ 且 $OA=OC$，得到 $OB=OC$。根据“到线段两端等距的点在线段中垂线上”，$O$ 也在 $BC$ 的中垂线上。</li>
+            <li><b>结论：</b>三边中垂线共点于 $O$，且 $OA=OB=OC$，所以以 $O$ 为圆心、$OA$ 为半径的圆经过三个顶点。</li>
+          </ol>
+        </div>
       </div>
 
       <h3 id="orthocenter">3. 垂心 $H$</h3>
@@ -96,6 +119,15 @@
             <figcaption>高线体现“顶点到对边方向垂直”，因此最适合用数量积为 $0$ 求解。</figcaption>
           </figure>
         </article>
+        <div class="proof-block">
+          <h4>证明：三条高为什么共点</h4>
+          <ol class="proof-steps">
+            <li><b>取交点：</b>从 $A,B$ 引出的两条高不平行，设它们交于 $H$。以 $H$ 为参考点，记 $\mathbf a=\overrightarrow{HA},\mathbf b=\overrightarrow{HB},\mathbf c=\overrightarrow{HC}$。</li>
+            <li><b>写成数量积：</b>$\overrightarrow{AH}=-\mathbf a,\overrightarrow{BC}=\mathbf c-\mathbf b$；$\overrightarrow{BH}=-\mathbf b,\overrightarrow{CA}=\mathbf a-\mathbf c$。因为 $AH\perp BC$、$BH\perp CA$，所以<div class="formula compact">$\mathbf a\cdot(\mathbf c-\mathbf b)=0,\qquad \mathbf b\cdot(\mathbf a-\mathbf c)=0$。</div></li>
+            <li><b>推导第三个垂直：</b>上式分别给出 $\mathbf a\cdot\mathbf c=\mathbf a\cdot\mathbf b$ 与 $\mathbf a\cdot\mathbf b=\mathbf b\cdot\mathbf c$，因此<div class="formula compact">$\mathbf c\cdot(\mathbf a-\mathbf b)=0$。</div>又 $\overrightarrow{CH}=-\mathbf c$，$\overrightarrow{AB}=\mathbf b-\mathbf a$，故 $\overrightarrow{CH}\cdot\overrightarrow{AB}=0$。</li>
+            <li><b>结论：</b>$CH\perp AB$，所以前两条高的交点 $H$ 也在第三条高上，三条高共点。</li>
+          </ol>
+        </div>
       </div>
 
       <h3 id="incenter">4. 内心 $I$</h3>
@@ -120,6 +152,15 @@
             <figcaption>角平分线上的点到角的两边等距；内心到三边的三条垂线都是内切圆半径。</figcaption>
           </figure>
         </article>
+        <div class="proof-block">
+          <h4>证明：三条内角平分线为什么共点</h4>
+          <ol class="proof-steps">
+            <li><b>取交点：</b>设 $AD,BE$ 分别是 $\angle A,\angle B$ 的内角平分线，其中 $D$ 在 $BC$ 内部、$E$ 在 $CA$ 内部。三角形是凸图形，两条内部线段 $AD,BE$ 有唯一交点，记为 $I$；$I$ 位于三角形内部。</li>
+            <li><b>使用轨迹性质：</b>角平分线上的点到角的两边所在直线距离相等，因此<div class="formula compact">$d(I,AB)=d(I,AC),\qquad d(I,BA)=d(I,BC)$。</div></li>
+            <li><b>推出第三条：</b>因为直线 $AB$ 与 $BA$ 是同一条直线，所以由上式得到 $d(I,AC)=d(I,BC)$。点 $I$ 位于 $\angle C$ 内部，故它必在 $\angle C$ 的内角平分线上。</li>
+            <li><b>结论：</b>三条内角平分线共点于 $I$；$I$ 到三边所在直线的距离相等，因此能以 $I$ 为圆心作三角形的内切圆。</li>
+          </ol>
+        </div>
       </div>
 
       <h3 id="other-centers">5. 旁心、九点圆心与费马点</h3>
