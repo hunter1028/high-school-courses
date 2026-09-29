@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>第二章 平面解析几何</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},svg:{fontCache:'global'}};</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body class="chapter-page">
+<div class="chapter-doc">
+  <section class="chap-head">
+    <p class="chap-meta">解析几何用坐标和方程研究图形：把“点是否在曲线上、两图形怎样相交、距离和范围是多少”转化为代数问题。它承接函数、平面向量与几何，高考中既有选择、填空，也常作为解答题主体；核心是定义、方程与图形之间的双向对应。</p>
+  </section>
+
+  <section id="overview" class="card">
+    <h2>一、章节速览</h2>
+    <div class="learning-route">
+      <div class="route-row"><b>语言</b><p>坐标法、曲线与方程</p><span>几何条件与代数关系双向对应</span></div>
+      <div class="route-row"><b>基础</b><p>直线、圆及其位置关系</p><span>斜率、距离、判别式</span></div>
+      <div class="route-row"><b>核心</b><p>椭圆、双曲线、抛物线</p><span>定义决定标准方程和几何性质</span></div>
+      <div class="route-row"><b>综合</b><p>直线与圆锥曲线</p><span>联立、韦达定理、弦长与参数</span></div>
+    </div>
+  </section>
+
+  <section id="knowledge" class="card">
+    <h2>二、知识清单</h2>
+
+    <h3 id="coordinate-method">1. 坐标法与曲线方程</h3>
+    <div class="subsection">
+      <article class="concept-row">
+        <div class="concept-copy">
+          <h4>曲线与方程的定义</h4>
+          <p>在同一平面直角坐标系中，若曲线 $C$ 上每一点的坐标都满足 $F(x,y)=0$，且满足该方程的每一组实数解所对应的点都在 $C$ 上，就称 $F(x,y)=0$ 是曲线 $C$ 的方程。</p>
+          <div class="formula">$M(x,y)\in C\Longleftrightarrow F(x,y)=0$</div>
+          <p>“点在曲线上”与“坐标满足方程”必须双向成立；求轨迹时既要推导方程，也要检查取值范围和增根。</p>
+        </div>
+        <figure class="diagram">
+          <svg viewBox="0 0 340 205" width="340" height="205" role="img" aria-label="曲线与方程双向对应示意图">
+            <path class="edge" d="M38 175H316M62 190V18"/><path class="key" d="M75 148C120 35 220 35 290 148"/>
+            <circle class="red" cx="160" cy="58" r="4"/><circle class="auxiliary-point" cx="245" cy="74" r="4"/>
+            <text x="149" y="48">M</text><text x="250" y="68">N</text><text x="298" y="190">x</text><text x="49" y="25">y</text>
+          </svg>
+          <figcaption>$M$ 在曲线上所以满足方程；曲线外的 $N$ 不满足方程。</figcaption>
+        </figure>
+      </article>
+      <div class="knowledge-grid">
+        <div class="knowledge-item"><b>两点距离</b><p>$|AB|=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}$</p></div>
+        <div class="knowledge-item"><b>中点坐标</b><p>$M\left(\dfrac{x_1+x_2}{2},\dfrac{y_1+y_2}{2}\right)$</p></div>
+      </div>
+    </div>
+
+    <h3 id="lines">2. 直线及其方程</h3>
+    <div class="subsection">
+      <article class="concept-row">
+        <div class="concept-copy">
+          <h4>倾斜角与斜率</h4>
+          <p><b>倾斜角：</b>直线向上的方向与 $x$ 轴正方向按逆时针形成的角，记为 $\alpha$。</p>
+          <div class="formula">$\alpha\in[0,\pi),\qquad k=\tan\alpha$</div>
+          <p>$\alpha=\dfrac\pi2$ 时直线垂直于 $x$ 轴，斜率不存在；水平线的斜率为 $0$。</p>
+        </div>
+        <figure class="diagram"><svg viewBox="0 0 330 185" width="330" height="185" role="img" aria-label="直线倾斜角与斜率示意图"><path class="edge" d="M28 151H307M54 170V20M54 151L278 48"/><path class="angle-arc" d="M99 151A45 45 0 0 0 95 132"/><text x="91" y="128">α</text><text x="294" y="169">x</text><text x="39" y="27">y</text><text x="274" y="43">l</text></svg><figcaption>同一直线上任取两点，$k=\dfrac{y_2-y_1}{x_2-x_1}$（$x_1\ne x_2$）。</figcaption></figure>
+      </article>
+
+      <h4>直线方程的五种形式</h4>
+      <div class="table-wrap"><table><thead><tr><th>形式</th><th>方程</th><th>条件与边界</th></tr></thead><tbody>
+        <tr><td>点斜式</td><td>$y-y_0=k(x-x_0)$</td><td>过 $(x_0,y_0)$，斜率存在</td></tr>
+        <tr><td>斜截式</td><td>$y=kx+b$</td><td>斜率存在；$b$ 为纵截距</td></tr>
+        <tr><td>两点式</td><td>$(x_2-x_1)(y-y_1)-(y_2-y_1)(x-x_1)=0$</td><td>两点不同；此写法也覆盖竖直线</td></tr>
+        <tr><td>截距式</td><td>$\dfrac xa+\dfrac yb=1$</td><td>$a\ne0,b\ne0$；不过原点且不平行于坐标轴</td></tr>
+        <tr><td>一般式</td><td>$Ax+By+C=0$</td><td>$(A,B)\ne(0,0)$；覆盖全部直线</td></tr>
+      </tbody></table></div>
+
+      <h4>位置、角与距离</h4>
+      <div class="table-wrap"><table><thead><tr><th>对象</th><th>判定或公式</th><th>条件</th></tr></thead><tbody>
+        <tr><td>$l_1\parallel l_2$</td><td>$A_1B_2-A_2B_1=0$</td><td>若 $(A_1,B_1,C_1)$ 与 $(A_2,B_2,C_2)$ 全部成比例，则两线重合</td></tr>
+        <tr><td>$l_1\perp l_2$</td><td>$A_1A_2+B_1B_2=0$</td><td>适用于一般式，包括竖直线</td></tr>
+        <tr><td>两直线较小夹角</td><td>$\tan\theta=\left|\dfrac{k_2-k_1}{1+k_1k_2}\right|$</td><td>$\theta\in[0,\frac\pi2]$；$1+k_1k_2=0$ 时 $\theta=\frac\pi2$</td></tr>
+        <tr><td>点到直线</td><td>$d=\dfrac{|Ax_0+By_0+C|}{\sqrt{A^2+B^2}}$</td><td>$P(x_0,y_0)$，$(A,B)\ne(0,0)$</td></tr>
+        <tr><td>平行线间距离</td><td>$d=\dfrac{|C_1-C_2|}{\sqrt{A^2+B^2}}$</td><td>先把两式化为相同的 $A,B$</td></tr>
+      </tbody></table></div>
+      <article class="concept-row compact-row">
+        <div class="concept-copy"><h4>点到直线距离为什么是投影</h4><p>直线 $l:Ax+By+C=0$ 的法向量为 $\mathbf n=(A,B)$。垂线段 $PH$ 与 $\mathbf n$ 平行，所以距离就是任意连接向量 $\overrightarrow{AP}$ 在法向量方向上的投影长度。</p><div class="formula">$A\in l:\quad PH=\dfrac{|\overrightarrow{AP}\cdot\mathbf n|}{|\mathbf n|}$</div></div>
+        <figure class="diagram"><svg viewBox="0 0 330 180" width="330" height="180" role="img" aria-label="点到直线距离和法向量投影示意图"><defs><marker id="line-normal-arr" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0 0L0 6L6 3Z" fill="#dc2626"/></marker></defs><path class="edge" d="M28 151L302 101"/><circle class="auxiliary-point" cx="75" cy="142.4" r="4"/><circle class="point" cx="183" cy="122.7" r="4"/><circle class="red" cx="167.5" cy="37.8" r="4"/><path class="hidden dash" d="M75 142.4L167.5 37.8"/><path class="red" d="M167.5 37.8L183 122.7" stroke-width="3" marker-end="url(#line-normal-arr)"/><path class="right-angle" d="M180.7 109.9L193.5 107.6L195.8 120.4"/><text x="61" y="161">A</text><text x="189" y="140">H</text><text x="175" y="35">P</text><text x="198" y="78">n</text><text x="292" y="95">l</text></svg><figcaption>$H$ 是垂足，红色 $PH$ 同时表示最短距离和法向量方向。</figcaption></figure>
+      </article>
+    </div>
+
+    <h3 id="circles">3. 圆及其方程</h3>
+    <div class="subsection">
+      <article class="concept-row">
+        <div class="concept-copy"><h4>定义与方程</h4><p><b>定义：</b>平面内到定点 $C$ 的距离等于定长 $r$ 的点的集合叫作圆；$C$ 是圆心，$r>0$ 是半径。</p><div class="formula">$(x-a)^2+(y-b)^2=r^2$</div><p>一般式 $x^2+y^2+Dx+Ey+F=0$ 表示圆的充要条件是 $D^2+E^2-4F>0$；圆心 $(-\frac D2,-\frac E2)$，半径 $\frac12\sqrt{D^2+E^2-4F}$。</p></div>
+        <figure class="diagram"><svg viewBox="0 0 320 205" width="320" height="205" role="img" aria-label="圆的圆心半径和直线位置关系"><circle class="circle-outline" cx="145" cy="105" r="70"/><circle class="point" cx="145" cy="105" r="4"/><path class="key" d="M145 105L198 59"/><path class="edge" d="M38 175L294 175M36 153L292 51M30 130L270 35"/><path class="red" d="M145 105V175" stroke-width="2.5"/><path class="right-angle" d="M145 162H158V175"/><text x="132" y="99">C</text><text x="174" y="76">r</text><text x="153" y="145">d</text></svg><figcaption>比较圆心到直线的距离 $d$ 与半径 $r$，即可判断交点个数。</figcaption></figure>
+      </article>
+      <div class="table-wrap"><table><thead><tr><th>对象</th><th>相交</th><th>相切</th><th>相离</th></tr></thead><tbody>
+        <tr><td>直线与圆</td><td>$d&lt;r$，两个交点</td><td>$d=r$，一个交点</td><td>$d>r$，无交点</td></tr>
+        <tr><td>两圆（圆心距 $s$）</td><td>$|r_1-r_2|&lt;s&lt;r_1+r_2$</td><td>$s=r_1+r_2$ 或 $s=|r_1-r_2|$</td><td>$s>r_1+r_2$ 或 $s&lt;|r_1-r_2|$</td></tr>
+      </tbody></table></div>
+      <p>两圆还可能重合：$s=0$ 且 $r_1=r_2$；若 $s=0$ 且 $r_1\ne r_2$，则同心相离。</p>
+    </div>
+
+    <h3 id="conics">4. 圆锥曲线：先定义，再方程</h3>
+    <div class="subsection concept-stack">
+      <article class="concept-row">
+        <div class="concept-copy"><h4>椭圆</h4><p><b>定义：</b>到两个定点 $F_1,F_2$ 的距离之和等于常数 $2a$ 的点的轨迹，其中 $2a>|F_1F_2|=2c>0$。</p><div class="formula">$\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1,\quad a>b>0,\quad c^2=a^2-b^2$</div><p>焦点 $(\pm c,0)$；顶点 $(\pm a,0),(0,\pm b)$；离心率 $e=\dfrac ca\in(0,1)$；准线 $x=\pm\dfrac ae$。长轴在 $y$ 轴时交换 $x,y$ 的位置。</p></div>
+        <figure class="diagram"><svg viewBox="0 0 350 220" width="350" height="220" role="img" aria-label="椭圆定义和焦点示意图"><ellipse class="circle-outline" cx="175" cy="110" rx="135" ry="72"/><path class="hidden" d="M24 110H326M175 23V197"/><circle class="red" cx="61" cy="110" r="4"/><circle class="red" cx="289" cy="110" r="4"/><circle class="point" cx="264.3" cy="56" r="4"/><path class="key" d="M61 110L264.3 56L289 110"/><text x="44" y="130">F₁</text><text x="292" y="130">F₂</text><text x="268" y="52">P</text><text x="142" y="74">PF₁+PF₂=2a</text></svg><figcaption>蓝色折线长度恒为 $2a$；两个焦点必须位于椭圆内部。</figcaption></figure>
+      </article>
+      <article class="concept-row">
+        <div class="concept-copy"><h4>双曲线</h4><p><b>定义：</b>到两个定点 $F_1,F_2$ 的距离之差的绝对值等于常数 $2a$ 的点的轨迹，其中 $0<2a<|F_1F_2|=2c$。</p><div class="formula">$\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1,\quad a,b>0,\quad c^2=a^2+b^2$</div><p>焦点 $(\pm c,0)$；顶点 $(\pm a,0)$；离心率 $e=\dfrac ca>1$；渐近线 $y=\pm\dfrac ba x$；准线 $x=\pm\dfrac ae$。实轴在 $y$ 轴时正项改为 $\frac{y^2}{a^2}$。</p></div>
+        <figure class="diagram"><svg viewBox="0 0 350 220" width="350" height="220" role="img" aria-label="双曲线定义焦点和渐近线示意图"><path class="hidden dash" d="M40 216L310 4M40 4L310 216"/><path class="circle-outline" d="M51 30C80 60 105 85 105 110S80 160 51 190M299 30C270 60 245 85 245 110S270 160 299 190"/><path class="hidden" d="M25 110H325"/><circle class="red" cx="86" cy="110" r="4"/><circle class="red" cx="264" cy="110" r="4"/><circle class="point" cx="80.4" cy="60" r="4"/><path class="key" d="M86 110L80.4 60L264 110"/><text x="70" y="130">F₁</text><text x="267" y="130">F₂</text><text x="84" y="55">P</text></svg><figcaption>必须是距离差的绝对值；两个符号分别对应左右两支。</figcaption></figure>
+      </article>
+      <article class="concept-row">
+        <div class="concept-copy"><h4>抛物线</h4><p><b>定义：</b>到定点 $F$ 与到定直线 $l$ 的距离相等的点的轨迹，其中 $F\notin l$。</p><div class="formula">$y^2=2px,\quad p>0$</div><p>焦点 $F(\frac p2,0)$，准线 $x=-\frac p2$，离心率 $e=1$。把 $x,y$ 互换或把右端改号，可得到开口向上、向左、向下的三种标准式。</p></div>
+        <figure class="diagram"><svg viewBox="0 0 350 220" width="350" height="220" role="img" aria-label="抛物线定义焦点准线和等距示意图"><path class="hidden dash" d="M175 20V200"/><path class="circle-outline" d="M281 20Q244 38 228.1 57Q200 91 200 110Q200 129 228.1 163Q244 182 281 200"/><circle class="red" cx="225" cy="110" r="4"/><circle class="point" cx="228.1" cy="57" r="4"/><path class="key" d="M225 110L228.1 57"/><path class="red" d="M175 57H228.1" stroke-width="2.5"/><path class="right-angle" d="M175 57V70H188"/><text x="162" y="18">l</text><text x="232" y="129">F</text><text x="234" y="53">P</text><text x="181" y="48">PF=d(P,l)</text></svg><figcaption>$P$ 到焦点的线段长，等于 $P$ 到准线的垂距。</figcaption></figure>
+      </article>
+      <div class="table-wrap"><table><thead><tr><th>开口方向</th><th>标准方程</th><th>焦点</th><th>准线</th></tr></thead><tbody>
+        <tr><td>向右</td><td>$y^2=2px$</td><td>$(\frac p2,0)$</td><td>$x=-\frac p2$</td></tr>
+        <tr><td>向左</td><td>$y^2=-2px$</td><td>$(-\frac p2,0)$</td><td>$x=\frac p2$</td></tr>
+        <tr><td>向上</td><td>$x^2=2py$</td><td>$(0,\frac p2)$</td><td>$y=-\frac p2$</td></tr>
+        <tr><td>向下</td><td>$x^2=-2py$</td><td>$(0,-\frac p2)$</td><td>$y=\frac p2$</td></tr>
+      </tbody></table></div>
+    </div>
+
+    <h3 id="line-conic">5. 直线与圆锥曲线的位置关系</h3>
+    <div class="subsection">
+      <article class="concept-row">
+        <div class="concept-copy"><h4>联立的代数含义</h4><p>把直线方程代入圆锥曲线，化成关于一个坐标的一元方程。它的实根与交点坐标一一对应。</p><div class="formula">$Ax^2+Bx+C=0:\quad \Delta=B^2-4AC$</div><p>$\Delta>0$ 有两个交点，$\Delta=0$ 相切，$\Delta&lt;0$ 无交点。必须先化简：若二次项系数因参数变为 $0$，应按一次方程另行判断。</p><div class="formula">$x_1+x_2=-\dfrac BA,\qquad x_1x_2=\dfrac CA$</div><div class="formula">$|PQ|=\sqrt{1+k^2}\,|x_1-x_2|$</div><p>弦长公式用于直线 $y=kx+m$；其中 $|x_1-x_2|=\sqrt{(x_1+x_2)^2-4x_1x_2}$。</p></div>
+        <figure class="diagram"><svg viewBox="0 0 350 220" width="350" height="220" role="img" aria-label="直线与圆锥曲线相交相切相离示意图"><ellipse class="circle-outline" cx="175" cy="112" rx="112" ry="70"/><path class="key" d="M35 177L315 63"/><circle class="point" cx="91" cy="158" r="4"/><circle class="point" cx="271" cy="81" r="4"/><path class="green-stroke" d="M180 217L330 105" stroke-width="2.2" fill="none"/><circle class="green" cx="260.8" cy="157" r="4"/><path class="hidden dash" d="M45 26L305 46"/><text x="73" y="177">P</text><text x="276" y="77">Q</text><text x="266" y="176">切点</text></svg><figcaption>割线对应两个实根，切线对应重根，相离直线没有实根。</figcaption></figure>
+      </article>
+    </div>
+  </section>
+
+  <section id="methods" class="card">
+    <h2>三、方法模板</h2>
+    <h3>1. 求轨迹方程：推导后必须补回双向验证</h3>
+    <div class="subsection worked-example"><h4>例：到 $F(2,0)$ 与直线 $l:x=-2$ 距离相等的点的轨迹</h4><div class="example-steps"><p><b>设：</b>动点 $P(x,y)$，到 $l$ 的垂足为 $H$。</p><p><b>列：</b>$PF=PH$，即 $\sqrt{(x-2)^2+y^2}=|x+2|$。</p><p><b>解：</b>两边平方并整理，得 $y^2=8x$。</p><p><b>验：</b>方程推出 $x=\frac{y^2}{8}\ge0$，故 $|x+2|=x+2$；反代可得 $PF=PH$，无增点。</p></div><p>所以轨迹方程为 $y^2=8x$。</p></div>
+
+    <h3>2. 待定系数求圆</h3>
+    <div class="subsection worked-example"><h4>例：求过 $A(0,0),B(4,0),C(0,2)$ 的圆</h4><p>设圆为 $x^2+y^2+Dx+Ey+F=0$。依次代入三点，得 $F=0$，$16+4D=0$，$4+2E=0$，所以 $D=-4,E=-2$。</p><div class="formula">$x^2+y^2-4x-2y=0\Longleftrightarrow(x-2)^2+(y-1)^2=5$</div><p>圆心为 $(2,1)$，半径为 $\sqrt5$；三点代回均成立。</p></div>
+
+    <h3>3. 由定义量确定圆锥曲线</h3>
+    <div class="subsection"><ol class="tight-list"><li>先由焦点或开口方向判断标准式的方向。</li><li>椭圆用 $a^2=b^2+c^2$；双曲线用 $c^2=a^2+b^2$；抛物线先确认教材式为 $y^2=2px$。</li><li>代入已知点或离心率求参数，最后检验 $a>b>0$、$p>0$ 等定义条件。</li></ol></div>
+
+    <h3>4. 直线与圆锥曲线：联立、根与弦长</h3>
+    <div class="subsection worked-example"><h4>例：直线 $y=x$ 截椭圆 $\frac{x^2}{4}+y^2=1$ 所得弦长</h4><div class="example-steps"><p><b>联立：</b>代入得 $\frac{x^2}{4}+x^2=1$，即 $5x^2=4$。</p><p><b>求根：</b>$x_1=\frac2{\sqrt5},x_2=-\frac2{\sqrt5}$，且 $y_i=x_i$。</p><p><b>弦长：</b>$|PQ|=\sqrt{1+1^2}|x_1-x_2|=\frac{4\sqrt{10}}5$。</p><p><b>检验：</b>两根不同，两个交点均满足直线和椭圆方程。</p></div></div>
+
+    <h3>5. 参数问题：先分退化情形</h3>
+    <div class="subsection"><p>含参数的联立式先看最高次项系数是否为 $0$；非零时再使用 $\Delta$、韦达定理和根的范围。若题目还要求交点位于某象限、线段或某支曲线上，必须把这些限制继续翻译成不等式。</p></div>
+  </section>
+
+  <section id="errors" class="card">
+    <h2>四、易错</h2>
+    <div class="error-list">
+      <p><b>把斜率不存在写成 $0$：</b>竖直线斜率不存在；水平线斜率才是 $0$。</p>
+      <p><b>只看 $A_1B_2-A_2B_1=0$ 就说平行：</b>还要排除三项系数全成比例的重合情形。</p>
+      <p><b>截距式乱用：</b>过原点或平行于坐标轴时，某个截距为 $0$ 或不存在，不能套 $\frac xa+\frac yb=1$。</p>
+      <p><b>一般二次式都当圆：</b>$x^2,y^2$ 系数必须相同、没有 $xy$ 项，且半径平方为正。</p>
+      <p><b>混淆 $a,b,c$：</b>椭圆 $a^2=b^2+c^2$；双曲线 $c^2=a^2+b^2$。</p>
+      <p><b>双曲线定义漏绝对值：</b>$|PF_1-PF_2|=2a$；不加绝对值只表示其中一支。</p>
+      <p><b>抛物线参数看错：</b>$y^2=2px$ 的焦点是 $(\frac p2,0)$，不是 $(p,0)$。</p>
+      <p><b>直接用判别式：</b>先确认联立后确为二次方程；最高次项系数为 $0$ 时需另判。</p>
+    </div>
+  </section>
+
+  <section id="basic" class="card">
+    <div class="sec-head"><h2>五、基础练习（25分钟）</h2><button class="print-btn" type="button" data-print="section" data-target="#basic">打印</button></div>
+    <details class="practice-fold"><summary>展开 16 题</summary>
+      <div class="exercise-group"><h3>坐标与直线</h3>
+        <div class="exercise"><p><strong>1.</strong> 求 $A(-1,2),B(3,-4)$ 的距离和中点坐标。</p><details><summary>答案</summary><p>$|AB|=2\sqrt{13}$，中点 $(1,-1)$。</p></details></div>
+        <div class="exercise"><p><strong>2.</strong> 求过点 $(2,-1)$、斜率为 $3$ 的直线方程。</p><details><summary>答案</summary><p>$y+1=3(x-2)$，即 $3x-y-7=0$。</p></details></div>
+        <div class="exercise"><p><strong>3.</strong> 求过 $A(1,2),B(1,-3)$ 的直线方程。</p><details><summary>答案</summary><p>$x=1$。</p></details></div>
+        <div class="exercise"><p><strong>4.</strong> 判断 $2x-y+1=0$ 与 $x+2y-3=0$ 的位置关系。</p><details><summary>答案</summary><p>$2\cdot1+(-1)\cdot2=0$，两直线垂直。</p></details></div>
+        <div class="exercise"><p><strong>5.</strong> 求点 $P(2,-1)$ 到直线 $3x+4y-5=0$ 的距离。</p><details><summary>答案</summary><p>$d=\frac{|6-4-5|}{5}=\frac35$。</p></details></div>
+      </div>
+      <div class="exercise-group"><h3>圆</h3>
+        <div class="exercise"><p><strong>6.</strong> 写出圆心 $(2,-1)$、半径 $3$ 的圆方程。</p><details><summary>答案</summary><p>$(x-2)^2+(y+1)^2=9$。</p></details></div>
+        <div class="exercise"><p><strong>7.</strong> 求圆 $x^2+y^2-4x+6y-12=0$ 的圆心和半径。</p><details><summary>答案</summary><p>$(x-2)^2+(y+3)^2=25$，圆心 $(2,-3)$，半径 $5$。</p></details></div>
+        <div class="exercise"><p><strong>8.</strong> 判断直线 $x+y-5=0$ 与圆 $x^2+y^2=9$ 的位置关系。</p><details><summary>答案</summary><p>圆心到直线距离 $5/\sqrt2>3$，相离。</p></details></div>
+        <div class="exercise"><p><strong>9.</strong> 两圆半径分别为 $2,5$，圆心距为 $3$，判断位置关系。</p><details><summary>答案</summary><p>$3=5-2$，内切。</p></details></div>
+      </div>
+      <div class="exercise-group"><h3>圆锥曲线</h3>
+        <div class="exercise"><p><strong>10.</strong> 椭圆 $\frac{x^2}{25}+\frac{y^2}{9}=1$ 的焦点和离心率是什么？</p><details><summary>答案</summary><p>$c=4$，焦点 $(\pm4,0)$，$e=\frac45$。</p></details></div>
+        <div class="exercise"><p><strong>11.</strong> 双曲线 $\frac{x^2}{9}-\frac{y^2}{16}=1$ 的渐近线和离心率是什么？</p><details><summary>答案</summary><p>$y=\pm\frac43x$，$c=5$，$e=\frac53$。</p></details></div>
+        <div class="exercise"><p><strong>12.</strong> 抛物线 $y^2=8x$ 的焦点和准线是什么？</p><details><summary>答案</summary><p>$2p=8$，焦点 $(2,0)$，准线 $x=-2$。</p></details></div>
+        <div class="exercise"><p><strong>13.</strong> 椭圆上一点到两个焦点的距离分别为 $3,7$，求长轴长。</p><details><summary>答案</summary><p>$2a=3+7=10$。</p></details></div>
+      </div>
+      <div class="exercise-group"><h3>直线与圆锥曲线</h3>
+        <div class="exercise"><p><strong>14.</strong> 判断直线 $y=2$ 与抛物线 $y^2=4x$ 的交点个数。</p><details><summary>答案</summary><p>代入得 $x=1$，有一个交点 $(1,2)$；直线并非抛物线切线，而是与对称轴平行的直线。</p></details></div>
+        <div class="exercise"><p><strong>15.</strong> 直线 $y=x$ 与圆 $x^2+y^2=8$ 相交于 $A,B$，求 $|AB|$。</p><details><summary>答案</summary><p>$2x^2=8$，$x=\pm2$，故 $|AB|=4\sqrt2$。</p></details></div>
+        <div class="exercise"><p><strong>16.</strong> 直线 $y=kx+1$ 与抛物线 $y^2=4x$ 相切，求 $k$。</p><details><summary>答案</summary><p>代入得 $k^2x^2+(2k-4)x+1=0$。$k=0$ 时无解；$k\ne0$ 时令 $\Delta=0$，得 $k=1$。</p></details></div>
+      </div>
+    </details>
+  </section>
+
+  <section id="simulation" class="card">
+    <div class="sec-head"><h2>六、模拟练习</h2><button class="print-btn" type="button" data-print="section" data-target="#simulation">打印</button></div>
+    <details class="practice-fold"><summary>展开 3 题</summary>
+      <div class="exercise"><p><strong>1.</strong> 已知圆 $C:x^2+y^2-4x+2y-4=0$，直线 $l:y=x+m$。若 $l$ 与圆 $C$ 相切，求 $m$。</p><details><summary>规范作答</summary><div class="exam-answer"><p><span class="label">解析：</span>先求圆心和半径，再用圆心到直线距离等于半径。</p><p><span class="label">解：</span>圆为 $(x-2)^2+(y+1)^2=9$。直线为 $x-y+m=0$，故 $\frac{|2-(-1)+m|}{\sqrt2}=3$，解得 $m=-3\pm3\sqrt2$。</p></div></details></div>
+      <div class="exercise"><p><strong>2.</strong> 椭圆 $C:\frac{x^2}{a^2}+\frac{y^2}{b^2}=1(a>b>0)$ 的离心率为 $\frac12$，且短轴长为 $2\sqrt3$，求其标准方程。</p><details><summary>规范作答</summary><div class="exam-answer"><p><span class="label">解：</span>$b=\sqrt3$，$c/a=1/2$。由 $a^2=b^2+c^2$ 得 $a^2=3+a^2/4$，所以 $a^2=4$。故 $\frac{x^2}{4}+\frac{y^2}{3}=1$。</p></div></details></div>
+      <div class="exercise"><p><strong>3.</strong> 直线 $y=x+m$ 与抛物线 $y^2=4x$ 交于 $A,B$，且弦 $AB$ 的中点横坐标为 $3$，求 $m$ 及 $|AB|$。</p><details><summary>规范作答</summary><div class="exam-answer"><p><span class="label">解：</span>代入得 $x^2+(2m-4)x+m^2=0$。由 $\frac{x_1+x_2}{2}=3$，得 $4-2m=6$，故 $m=-1$。此时 $x_1+x_2=6,x_1x_2=1$，$\Delta=32>0$。所以 $|AB|=\sqrt2\sqrt{36-4}=8$。</p></div></details></div>
+    </details>
+  </section>
+
+  <section id="gaokao" class="card">
+    <div class="sec-head"><h2>七、高考真题</h2><button class="print-btn" type="button" data-print="section" data-target="#gaokao">打印</button></div>
+    <details class="practice-fold"><summary>展开 2 题</summary>
+      <article class="gaokao-item"><div class="gaokao-head"><div class="gaokao-title">1. 椭圆离心率与焦点三角形</div></div><div class="gaokao-meta"><span>新高考常见题型·选择题</span><span class="flag">同考点改编</span></div><p class="gaokao-q">椭圆 $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1(a>b>0)$ 的左、右焦点为 $F_1,F_2$。点 $P$ 在椭圆上，且 $PF_1\perp PF_2$，$PF_1=3,PF_2=4$，求椭圆的离心率。</p><details><summary>精讲</summary><div class="exam-answer"><p><span class="label">解析：</span>椭圆定义给出长轴长，直角三角形给出焦距。</p><p><span class="label">解：</span>$2a=PF_1+PF_2=7$。在直角三角形 $PF_1F_2$ 中，$2c=F_1F_2=5$，所以 $e=c/a=5/7$。</p><div class="variant"><strong>变式：</strong>若 $PF_1=m,PF_2=n$ 且夹角为 $\theta$，则由余弦定理求 $2c$，再除以 $m+n=2a$。</div></div></details></article>
+      <article class="gaokao-item"><div class="gaokao-head"><div class="gaokao-title">2. 抛物线弦长与参数</div></div><div class="gaokao-meta"><span>新高考常见题型·解答题</span><span class="flag">同考点改编</span></div><p class="gaokao-q">已知抛物线 $C:y^2=4x$，过点 $M(2,0)$ 的直线 $l$ 与 $C$ 交于 $A,B$。若 $AB$ 的中点纵坐标为 $1$，求直线 $l$ 的方程与 $|AB|$。</p><details><summary>精讲</summary><div class="exam-answer"><p><span class="label">解析：</span>中点纵坐标直接控制两根之和；为避免竖直线遗漏，先单独检查 $x=2$。</p><p><span class="label">解：</span>$x=2$ 与抛物线交于 $(2,\pm2\sqrt2)$，中点纵坐标为 $0$，不合题意。故设 $l:y=k(x-2)$，即 $x=y/k+2$，其中 $k\ne0$。代入得 $ky^2-4y-8k=0$。设 $A,B$ 的纵坐标为 $y_1,y_2$，则 $y_1+y_2=4/k=2$，所以 $k=2$，直线为 $y=2x-4$。又 $y_1y_2=-8$，故 $|y_1-y_2|=6$；$\Delta x=\Delta y/2$，所以 $|AB|=\sqrt{6^2+3^2}=3\sqrt5$。</p><div class="variant"><strong>变式：</strong>若中点纵坐标改为 $t\ne0$，可由 $y_1+y_2=2t$ 得 $k=2/t$，再检查判别式。</div></div></details></article>
+    </details>
+  </section>
+
+  <section id="weakness" class="card"><h2>八、薄弱环节</h2><ul id="weaklist" class="tight-list"></ul></section>
+</div>
+
+<div class="pv-backdrop" id="pv" hidden><div class="pv-panel"><div class="pv-bar"><div class="pv-title" id="pvTitle"></div><div class="pv-actions"><button class="pv-btn ghost" type="button" id="pvClose">关闭预览</button><button class="pv-btn" type="button" id="pvPrint">打印</button></div></div><div class="pv-select" id="pvSelect" hidden></div><div class="pv-body" id="pvBody"></div></div></div>
+<script>
+(function(){'use strict';var d=document,pv=d.getElementById('pv'),title=d.getElementById('pvTitle'),body=d.getElementById('pvBody'),select=d.getElementById('pvSelect'),print=d.getElementById('pvPrint'),close=d.getElementById('pvClose');
+function text(el){return el.textContent.replace(/\s+/g,' ').trim()}function label(item,i){var t=item.querySelector('.gaokao-title');if(t)return text(t);var q=item.querySelector('p'),s=q?text(q):text(item);return '第 '+(i+1)+' 题 · '+(s.length>42?s.slice(0,42)+'…':s)}
+function clean(node){var c=node.cloneNode(true);Array.prototype.forEach.call(c.querySelectorAll('.print-btn,.sec-head,.pill,.pills,details,.variant,.flag'),function(el){if(el.parentNode)el.parentNode.removeChild(el)});var s=d.createElement('div');s.className='answer-space'+(node.querySelector('.diagram')||node.classList.contains('gaokao-item')?' large':'');s.innerHTML='<span>作答：</span>';c.appendChild(s);return c}
+function preview(t,html){title.textContent=t;body.innerHTML=html;select.hidden=true;body.hidden=false;print.hidden=false;pv.hidden=false;d.body.classList.add('pv-open')}
+function chooser(t,items){title.textContent=t;body.hidden=true;select.innerHTML='<p>勾选要打印的题目；打印稿只保留题干、图和作答区。</p><div class="pv-select-list"></div><div class="pv-select-actions"><button class="pv-btn ghost" type="button" data-select-all>全选</button><button class="pv-btn" type="button" data-preview>预览所选题目</button></div>';var list=select.querySelector('.pv-select-list');Array.prototype.forEach.call(items,function(item,i){var o=d.createElement('label'),input=d.createElement('input');o.className='pv-select-option';input.type='checkbox';input.checked=true;input.value=i;o.appendChild(input);o.appendChild(d.createTextNode(label(item,i)));list.appendChild(o)});select.hidden=false;print.hidden=true;pv.hidden=false;d.body.classList.add('pv-open');select._items=items}
+function shut(){pv.hidden=true;body.innerHTML='';select.innerHTML='';select.hidden=true;print.hidden=false;d.body.classList.remove('pv-open')}close.addEventListener('click',shut);print.addEventListener('click',function(){window.print()});pv.addEventListener('click',function(e){if(e.target===pv)shut()});select.addEventListener('click',function(e){var items=select._items||[];if(e.target.hasAttribute('data-select-all'))Array.prototype.forEach.call(select.querySelectorAll('input'),function(i){i.checked=true});if(e.target.hasAttribute('data-preview')){var chosen=select.querySelectorAll('input:checked');if(!chosen.length)return;var parts=[];Array.prototype.forEach.call(chosen,function(i){parts.push(clean(items[Number(i.value)]).outerHTML)});preview(title.textContent.replace('选择题目 · ', '')+' · '+chosen.length+' 题',parts.join(''));body.scrollTop=0}});Array.prototype.forEach.call(d.querySelectorAll('.print-btn'),function(btn){btn.addEventListener('click',function(e){e.preventDefault();var section=d.querySelector(btn.getAttribute('data-target'));if(!section)return;chooser('选择题目 · '+text(section.querySelector('h2')),section.querySelectorAll('.exercise,.gaokao-item'))})})})();
+</script>
+</body>
+</html>
